@@ -4,8 +4,11 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import data.IpPrefixRepository;
-import domain.IpPrefix;
+import com.corporate.ipbase.data.IpPrefixRepository;
+import com.corporate.ipbase.domain.IpPrefix;
+
+import data.InventoryRepository;
+import domain.MerchandiseEntity;
 import inet.ipaddr.IPAddress;
 import inet.ipaddr.IPAddressString;
 
@@ -24,7 +27,11 @@ public class DevelopmentConfig {
 				String bytes = "1,2,3";
 				IpPrefix prefix =  new IpPrefix(bytes);
 				repo.save(prefix);
+			
 				
+				/*MerchandiseEntity pants = new MerchandiseEntity(
+						  new Double(34.99), "Pair of Pants");
+				repo.save(pants);*/
 			}
 		};
 	  }

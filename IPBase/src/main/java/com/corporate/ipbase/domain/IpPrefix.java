@@ -1,4 +1,4 @@
-package domain;
+package com.corporate.ipbase.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,9 +21,11 @@ public class IpPrefix {
 
 	  @Id
 	  @GeneratedValue(strategy = GenerationType.AUTO)
+	  private final Long id = -1L;
+	  
 	  @NonNull
 	  private String bytes;
-	  private final Long id = -1L;
+	  
 	  
 
 }

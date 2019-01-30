@@ -1,9 +1,8 @@
-package data;
-import org.springframework.data.jpa.repository.JpaRepository;
+package com.corporate.ipbase.data;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import domain.IpPrefix;
+import com.corporate.ipbase.domain.IpPrefix;
 
 @Repository
 public interface IpPrefixRepository extends CrudRepository<IpPrefix,Long> {
