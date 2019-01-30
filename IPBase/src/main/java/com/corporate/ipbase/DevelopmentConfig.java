@@ -24,8 +24,11 @@ public class DevelopmentConfig {
 			public void run(String... args) throws Exception {
 				
 				//IPAddress address = new IPAddressString("1.2.3.4").getAddress();
-				String bytes = "1,2,3";
-				IpPrefix prefix =  new IpPrefix(bytes);
+				byte[] bytes = {1,2,3};
+				String[] test_addr = {"1.1.1.1","2.2.2.2", };
+				for (String s : test_addr)
+					System.out.println(s + " " + IpPrefix.isValidIPV4(s));
+				IpPrefix prefix =  new IpPrefix(bytes,32,4);
 				repo.save(prefix);
 			
 				
