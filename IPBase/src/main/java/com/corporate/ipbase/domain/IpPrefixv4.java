@@ -1,11 +1,14 @@
 package com.corporate.ipbase.domain;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.regex.Pattern;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Size;
 
 import inet.ipaddr.IPAddress;
 import lombok.AccessLevel;
@@ -16,21 +19,28 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 @Data
-@RequiredArgsConstructor
-@NoArgsConstructor(access=AccessLevel.PUBLIC, force=true)
 @Entity
 public class IpPrefixv4 extends IpPrefix{
 
-	  @Id
-	  @GeneratedValue(strategy = GenerationType.AUTO)
-	  private final Long id = -1L;
+
 	  
+
+
+
 	  @NonNull
-	  private byte[] bytes;
+	  @Size(min=4, max=4 )
+	  private byte[] bytes = new byte[4];
 	  @NonNull
 	  private int mask; 
 	  @NonNull
 	  private int version;
+	  
+	  public IpPrefixv4(@NonNull LocalDateTime lastUpdate, @NonNull byte[] bytes, @NonNull int mask, @NonNull int version) {
+		super(lastUpdate);
+		this.bytes = bytes;
+		this.mask = mask;
+		this.version = version;
+	}
 	  
 	  //static private final String IPV4_REGEX = "(([0-1]?[0-9]{1,2}\\.)|(2[0-4][0-9]\\.)|(25[0-5]\\.)){3}(([0-1]?[0-9]{1,2})|(2[0-4][0-9])|(25[0-5]))";
 	  //static private final String IPV4_REGEX = "(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)";
