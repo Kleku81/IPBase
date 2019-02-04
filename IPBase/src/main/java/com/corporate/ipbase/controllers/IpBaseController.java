@@ -16,12 +16,20 @@
 package com.corporate.ipbase.controllers;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.corporate.ipbase.data.IpPrefixRepository;
+import com.corporate.ipbase.domain.IpPrefix;
+import com.corporate.ipbase.domain.IpPrefixv4;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Controller
 class IpBaseController {
@@ -31,24 +39,25 @@ class IpBaseController {
     public IpBaseController(IpPrefixRepository repo) {
         this.repo= repo;
     }
-
-    @GetMapping("/iplist.html")
-    public String showIpList(Map<String, Object> model) {
-        // Here we are returning an object of type 'Vets' rather than a collection of Vet
-        // objects so it is simpler for Object-Xml mapping
-        IpList iplist = new IpList();
-        iplist.getIpList().addAll(this.repo.findAll();
-        model.put("vets", vets);
-        return "vets/vetList";
+    @RequestMapping(path = "/")
+    public String index() {
+        return "index";
     }
 
-    @GetMapping({ "/vets" })
+    @RequestMapping(path = "/products", method = RequestMethod.GET)
+    public String getAllProducts(Model model) {
+    	System.out.println("!!! get All products !!!");
+        model.addAttribute("products", repo.findAll());
+        return "test";
+    }
+
+    /*@GetMapping({ "/vets" })
     public @ResponseBody IpList showResourcesVetList() {
         // Here we are returning an object of type 'Vets' rather than a collection of Vet
         // objects so it is simpler for JSon/Object mapping
         IpList vets = new IpList();
         vets.getVetList().addAll(this.vets.findAll());
         return vets;
-    }
+    }*/
 
 }
