@@ -10,8 +10,6 @@ import org.springframework.context.annotation.Configuration;
 import com.corporate.ipbase.data.IpPrefixRepository;
 import com.corporate.ipbase.domain.IpPrefixv4;
 
-import data.InventoryRepository;
-import domain.MerchandiseEntity;
 import inet.ipaddr.IPAddress;
 import inet.ipaddr.IPAddressString;
 import lombok.NonNull;

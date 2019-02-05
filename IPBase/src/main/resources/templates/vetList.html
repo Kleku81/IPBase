@@ -10,10 +10,14 @@
         <h2>All Products</h2>
         <table class="table table-striped">
             <tr>
-                <th>Id</th>
-                <th>Name</th>
+           		<th>ID</th>
+           		<th>LastUpdate</th>
+                <th>Mask</th>
+                <th>Version</th>
             </tr>
             <tr th:each="product : ${products}">
+            	<td th:text="${product.id}">id</td>
+            	<td th:text="${product.lastUpdate}">LastUpdate</td>
                 <td th:text="${product.mask}">mask</td>
                 <td th:text="${product.version}">version</td>
             </tr>
