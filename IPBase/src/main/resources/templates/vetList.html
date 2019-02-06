@@ -12,14 +12,34 @@
             <tr>
            		<th>ID</th>
            		<th>LastUpdate</th>
+           		<th>bytes</th>
                 <th>Mask</th>
                 <th>Version</th>
             </tr>
-            <tr th:each="product : ${products}">
-            	<td th:text="${product.id}">id</td>
+            <tr th:each="product,rowStat : ${products}">
+            	<td th:text="${rowStat.count}">1</td>
             	<td th:text="${product.lastUpdate}">LastUpdate</td>
+            	<td th:text="${product.bytes[0]+'.'+product.bytes[1]+'.'+product.bytes[2]+'.'+product.bytes[3]}">LastUpdate</td>
                 <td th:text="${product.mask}">mask</td>
                 <td th:text="${product.version}">version</td>
+                
+                <table>
+                	<tr>
+           				<th>ID</th>
+           				<th>LastUpdate</th>
+           				<th>bytes</th>
+                		<th>Mask</th>
+                		<th>Version</th>
+            		</tr>
+            		tr th:each="subproduct,rowStat : ${product.subNets}">
+            			<td th:text="${rowStat.count}">1</td>
+            			<td th:text="${subproduct.lastUpdate}">LastUpdate</td>
+            			<td th:text="${subproduct.bytes[0]+'.'+product.bytes[1]+'.'+product.bytes[2]+'.'+product.bytes[3]}">LastUpdate</td>
+                		<td th:text="${subproduct.mask}">mask</td>
+                		<td th:text="${subproduct.version}">version</td>
+                	</tr>
+                	
+                </table>
             </tr>
         </table>
     </div>

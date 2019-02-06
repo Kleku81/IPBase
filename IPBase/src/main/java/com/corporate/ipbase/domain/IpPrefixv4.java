@@ -1,13 +1,17 @@
 package com.corporate.ipbase.domain;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.regex.Pattern;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Size;
 
 import inet.ipaddr.IPAddress;
@@ -34,6 +38,11 @@ public class IpPrefixv4 extends IpPrefix{
 	  private int mask; 
 	  @NonNull
 	  private int version;
+	  @OneToMany(
+		        cascade = CascadeType.ALL,
+		        orphanRemoval = true
+		    )
+	  private List<IpPrefixv4> subNets = new ArrayList<>();
 	  
 	  public IpPrefixv4(@NonNull LocalDateTime lastUpdate, @NonNull byte[] bytes, @NonNull int mask, @NonNull int version) {
 		super(lastUpdate);
@@ -60,6 +69,8 @@ public class IpPrefixv4 extends IpPrefix{
 	   {          
 	      return IPV4_PATTERN1.matcher(s).matches();
 	   }
+	   
+	   
 
 
 
