@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+test
+    <section layout:fragment="menu">
+        <ul>
+            <!--<li th:each="menuItem : ${menuItemsList}" th:text="${menuItem.bytes[0]+'.'+menuItem.bytes[1]+'.'+menuItem.bytes[2]+'.'+menuItem.bytes[3]}"> -->
+            <li th:each="menuItem : ${menuItemsList}" th:text="${menuItem.name}"> 
+                <section layout:include="@{menuFragment} :: menu" th:with="menuItemsList=${menuItem.subNets}"></section>
+            </li>
+        </ul> 
+    </section>
+</html>
+
+<!-- ${menuItem.bytes[0]+'.'+menuItem.bytes[1]+'.'+menuItem.bytes[2]+'.'+menuItem.bytes[3]} -->

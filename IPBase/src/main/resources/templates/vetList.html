@@ -3,11 +3,14 @@
 <head lang="en">
     <title>Products</title>
     <th:block th:include="layout/header"></th:block>
+    
 </head>
 <body>
+<section layout:include="@{menuFragment} :: menu" th:with="menuItemsList=${products}"></section>
 <div class="container">
     <div th:if="${not #lists.isEmpty(products)}">
         <h2>All Products</h2>
+          	 
         <table class="table table-striped">
             <tr>
            		<th>ID</th>
@@ -21,26 +24,8 @@
             	<td th:text="${product.lastUpdate}">LastUpdate</td>
             	<td th:text="${product.bytes[0]+'.'+product.bytes[1]+'.'+product.bytes[2]+'.'+product.bytes[3]}">LastUpdate</td>
                 <td th:text="${product.mask}">mask</td>
-                <td th:text="${product.version}">version</td>
-                
-                <table>
-                	<tr>
-           				<th>ID</th>
-           				<th>LastUpdate</th>
-           				<th>bytes</th>
-                		<th>Mask</th>
-                		<th>Version</th>
-            		</tr>
-            		tr th:each="subproduct,rowStat : ${product.subNets}">
-            			<td th:text="${rowStat.count}">1</td>
-            			<td th:text="${subproduct.lastUpdate}">LastUpdate</td>
-            			<td th:text="${subproduct.bytes[0]+'.'+product.bytes[1]+'.'+product.bytes[2]+'.'+product.bytes[3]}">LastUpdate</td>
-                		<td th:text="${subproduct.mask}">mask</td>
-                		<td th:text="${subproduct.version}">version</td>
-                	</tr>
-                	
-                </table>
-            </tr>
+                <td th:text="${product.version}">version</td>   
+             </tr>
         </table>
     </div>
 </div>

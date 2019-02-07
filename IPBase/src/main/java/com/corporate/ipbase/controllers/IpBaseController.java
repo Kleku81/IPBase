@@ -48,7 +48,8 @@ class IpBaseController {
     public String getAllProducts(Model model) {
     	System.out.println("!!! get All products !!!");
         model.addAttribute("products", repo.findAll());
-        return "vetList";
+        //return "vetList";
+        return "test";
     }
 
     /*@GetMapping({ "/vets" })

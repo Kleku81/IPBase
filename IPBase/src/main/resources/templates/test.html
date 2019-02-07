@@ -6,5 +6,12 @@
 </head>
 <body>
 
+    <div layout:insert="~{task/alert :: alert}" th:with="type='info', header='Info'" th:remove="tag">
+        <!--/* Implements alert content fragment with simple content */-->
+        <th:block layout:fragment="alert-content">
+            <p><em>This is a simple list of tasks!</em></p>
+        </th:block>
+    </div>
+
 </body>
 </html>
