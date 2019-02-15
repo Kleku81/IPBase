@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+ul, #myUL {
+  list-style-type: none;
+}
+
+#myUL {
+  margin: 0;
+  padding: 0;
+}
+
+.caret {
+  cursor: cursor;
+  -webkit-user-select: none; /* Safari 3.1+ */
+  -moz-user-select: none; /* Firefox 2+ */
+  -ms-user-select: none; /* IE 10+ */
+  user-select: none;
+}
+
+.caret::before {
+  content: "\25B6";
+  color: brown;
+  display: inline-block;
+  margin-right: 6px;
+}
+
+.caret-down::before {
+  -ms-transform: rotate(90deg); /* IE 9 */
+  -webkit-transform: rotate(90deg); /* Safari */'
+  transform: rotate(90deg);  
+}
+
+.caret-left::before {
+  -ms-transform: rotate(180deg); /* IE 9 */
+  -webkit-transform: rotate(180deg); /* Safari */'
+  transform: rotate(180deg);  
+}
+
+b {
+  cursor: copy;
+  padding-left: 20px;
+  display: inline-block;
+}
+
+b:before {
+  content: "";
+  border-color: transparent #ec6608;
+  border-style: groove;
+  border-width: 0.35em 0 0.35em 0.45em;
+  display: block;
+  height: 0;
+  width: 0;
+  left: -10px;
+  top: 1.1em;
+  color: #ec6608;
+  position: relative; 
+}
+
+<!--
+.nested { 
+  onclick="myFunction()"
+  display: none;
+}
+
+.active {
+  display: block;
+}
+
+k:before {
+  content: 'Tekst przed akapitem '; 
+  display: block;
+}
+</style>
+</head>
+<body>
+
+<h2>Tree View</h2>
+<p>A tree view represents a hierarchical view of information, where each item can have a number of subitems.</p>
+<p>Click on the arrow(s) to open or close the tree branches.</p>
+
+<div th:insert="fragments/sidebar1.html :: submenu"></div>
+
+<b href="#">This is a link with a caret before on it</b>
+
+<k>akapit</k>
+
+<p class="caret" id="demo">test</p>
+
+	<script>
+		var toggler = document.getElementsByClassName("caret");
+		var i;
+
+		for (i = 0; i < toggler.length; i++) {
+			toggler[i].addEventListener("click", function() {
+				this.parentElement.querySelector(".nested").classList
+						.toggle("active");
+				this.classList.toggle("caret-down");
+			});
+		}
+	</script>
+
+
+</body>
+</html>

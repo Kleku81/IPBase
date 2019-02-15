@@ -1,0 +1,14 @@
+<div th:fragment="submenu" th:remove="tag">
+		<ul>
+			<li th:each="prefix : ${prefix_list}">
+				<div th:if="${#lists.size(prefix.subNets)} > '0'" class="caret"
+					th:text="${prefix.bytes[0]+'.'+prefix.bytes[1]+'.'+prefix.bytes[2]+'.'+prefix.bytes[3]+'/'+prefix.mask}+'  z1'"/>
+				
+				<div th:unless="${#lists.size(prefix.subNets)} > '0'"
+					th:text="${prefix.bytes[0]+'.'+prefix.bytes[1]+'.'+prefix.bytes[2]+'.'+prefix.bytes[3]+'/'+prefix.mask}+'  z2'"/>	
+					
+			
+			 <span th:text="${#lists.size(prefix.subNets)} > '0'"> true or false </span>  
+			<div  th:if="${#lists.size(prefix.subNets)} > '0'" th:include="fragments/sidebar2.html :: submenu" th:remove="tag" /></li>
+	</ul>
+</div>

@@ -44,12 +44,12 @@ class IpBaseController {
         return "index";
     }
 
-    @RequestMapping(path = "/products", method = RequestMethod.GET)
+    @RequestMapping(path = "/prefixes", method = RequestMethod.GET)
     public String getAllProducts(Model model) {
     	System.out.println("!!! get All products !!!");
-        model.addAttribute("products", repo.findAll());
+        model.addAttribute("prefix_list", repo.findAll());
         //return "vetList";
-        return "test";
+        return "tree_disp";
     }
 
     /*@GetMapping({ "/vets" })
