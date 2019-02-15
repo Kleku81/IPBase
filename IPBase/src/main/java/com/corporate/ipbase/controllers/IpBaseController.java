@@ -27,9 +27,11 @@ import com.corporate.ipbase.domain.IpPrefix;
 import com.corporate.ipbase.domain.IpPrefixv4;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 @Controller
 class IpBaseController {
@@ -47,6 +49,9 @@ class IpBaseController {
     @RequestMapping(path = "/prefixes", method = RequestMethod.GET)
     public String getAllProducts(Model model) {
     	System.out.println("!!! get All products !!!");
+    	Set<IpPrefixv4> unique = new HashSet<>(repo.findAll());
+    	List<IpPrefixv4> mainList = new ArrayList<>();
+    	mainList.addAll(unique);
         model.addAttribute("prefix_list", repo.findAll());
         //return "vetList";
         return "tree_disp";
