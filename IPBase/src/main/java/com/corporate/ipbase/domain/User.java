@@ -24,7 +24,7 @@ public class User {
 	private final Long id = -1L;
 	
 	@NonNull
-	private String firstNAme;
+	private String firstName;
 	@NonNull
 	private String lastName;
 

@@ -82,6 +82,16 @@ k:before {
 
 <div th:insert="fragments/sidebar1.html :: submenu"></div>
 
+<!--   <input th:replace="~{fragments/inputField1 :: input ('Name', 'prefix.version', 'text')}" /> -->
+
+<h1>Form</h1>
+    <form action="#" th:action="@{/prefix}" th:object="${user}" method="post">
+    	<p>Bytes: <input type="text" th:field="*{bytes}" /></p>
+        <p>Mask: <input type="text" th:field="*{mask}" /></p>
+        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+    </form>
+
+
 <b href="#">This is a link with a caret before on it</b>
 
 <k>akapit</k>

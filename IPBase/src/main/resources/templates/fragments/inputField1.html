@@ -1,0 +1,10 @@
+<html>
+<body>
+  <form>
+  	<th:block th:fragment="input (label, name, type)">
+        <label class="col-sm-2 control-label" th:text="${label}">Label</label>
+        <input class="form-control" type="text"   th:value="{${prefix.version}}"  />
+     </th:block>      
+  </form>
+</body>
+</html>
