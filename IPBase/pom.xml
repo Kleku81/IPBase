@@ -17,6 +17,8 @@
 
 	<properties>
 		<java.version>1.8</java.version>
+		<wro4j.version>1.8.0</wro4j.version>
+		<webjars-bootstrap.version>3.3.6</webjars-bootstrap.version>
 	</properties>
 
 	<dependencies>
@@ -71,10 +73,31 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
+		<!-- webjar -->
+	<dependency>
+		<groupId>org.webjars</groupId>
+		<artifactId>bootstrap</artifactId>
+		<version>3.3.6</version>
+	</dependency>
+		
+		<!-- wro4j -->
 	</dependencies>
 
 	<build>
+	
 		<plugins>
+			    <plugin>
+				<groupId>ro.isdc.wro4j</groupId>
+				<artifactId>wro4j-maven-plugin</artifactId>
+				<version>${wro4j.version}</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>run</goal>
+						</goals>
+				</execution>
+				</executions>
+			</plugin> 
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>

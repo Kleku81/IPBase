@@ -1,9 +1,6 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
+<html xmlns:th="http://www.thymeleaf.org"
+  th:replace="~{fragments/layout :: layout (~{::body},'owners')}">
+  
 <body>
 
     <div layout:insert="~{task/alert :: alert}" th:with="type='info', header='Info'" th:remove="tag">

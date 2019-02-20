@@ -17,6 +17,7 @@ package com.corporate.ipbase.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -39,6 +40,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
+import javax.validation.Valid;
+
 @Controller
 class IpBaseController {
 
@@ -59,6 +62,18 @@ class IpBaseController {
     @RequestMapping(path = "/")
     public String index() {
         return "index";
+    }
+    
+    @RequestMapping(path = "/test", method = RequestMethod.GET)
+    public String test()
+    {
+    	return "test";
+    }
+    
+    @RequestMapping(path = "/test1", method = RequestMethod.GET)
+    public String test1()
+    {
+    	return "test1";
     }
 
     @RequestMapping(path = "/prefixes", method = RequestMethod.GET)
@@ -81,7 +96,11 @@ class IpBaseController {
     }
 
     @PostMapping("/user")
-    public String greetingSubmit(@ModelAttribute User user) {
+    public String greetingSubmit(@Valid User user, Errors errors) {
+    	if (errors.hasErrors()) {
+    		System.out.println("Wystąpiły  błedy");
+    		return "test_user";
+    	}
     	System.out.println(user.toString());
     	userRepo.save(user);
         return "test_user_zap";

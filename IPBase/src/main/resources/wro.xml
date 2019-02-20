@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<groups xmlns="http://www.isdc.ro/wro">
+    <css>classpath:META-INF/resources/webjars/bootstrap/3.3.6/less/bootstrap.less</css>
+    <css>/petclinic.less</css>
+</groups>
