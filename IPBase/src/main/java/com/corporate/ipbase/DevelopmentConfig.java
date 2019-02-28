@@ -53,12 +53,12 @@ public class DevelopmentConfig {
 				String[] test_addr = {"aaaa","2.2.2.2/32","255.255.255.255" };
 				for (String s : test_addr)
 					System.out.println(s + " " + IpPrefixv4.isValidIPV4(s));
-				IpPrefixv4 prefix =  new IpPrefixv4(LocalDateTime.now(),bytes,16,4);
-				IpPrefixv4 prefix1 =  new IpPrefixv4(LocalDateTime.now(),bytes1,24,4);
-				IpPrefixv4 prefix2 =  new IpPrefixv4(LocalDateTime.now(),bytes2,24,4);
-				IpPrefixv4 prefix3 =  new IpPrefixv4(LocalDateTime.now(),bytes3,16,4);
-				IpPrefixv4 prefix4 =  new IpPrefixv4(LocalDateTime.now(),bytes4,24,4);
-				IpPrefixv4 prefix5 =  new IpPrefixv4(LocalDateTime.now(),bytes5,24,4);
+				IpPrefixv4 prefix =  new IpPrefixv4(LocalDateTime.now(),bytes,16,4,"prefix");
+				IpPrefixv4 prefix1 =  new IpPrefixv4(LocalDateTime.now(),bytes1,24,4,"prefix1");
+				IpPrefixv4 prefix2 =  new IpPrefixv4(LocalDateTime.now(),bytes2,24,4,"prefix2");
+				IpPrefixv4 prefix3 =  new IpPrefixv4(LocalDateTime.now(),bytes3,16,4,"prefix3");
+				IpPrefixv4 prefix4 =  new IpPrefixv4(LocalDateTime.now(),bytes4,24,4,"prefix4");
+				IpPrefixv4 prefix5 =  new IpPrefixv4(LocalDateTime.now(),bytes5,24,4,"prefix5");
 				prefix.getSubNets().add(prefix1);
 				prefix.getSubNets().add(prefix2);
 				prefix3.getSubNets().add(prefix4);

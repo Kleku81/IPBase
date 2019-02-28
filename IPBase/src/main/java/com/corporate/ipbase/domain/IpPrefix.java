@@ -23,7 +23,7 @@ import lombok.RequiredArgsConstructor;
 
 @Data
 @RequiredArgsConstructor
-@NoArgsConstructor
+//@NoArgsConstructor
 @MappedSuperclass
 @Inheritance(strategy = InheritanceType.JOINED)
 public class IpPrefix {
@@ -32,7 +32,7 @@ public class IpPrefix {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private final Long id = -1L;
 	
-	@NonNull
+	//@NonNull
 	//@Temporal(TemporalType.DATE)
 	private LocalDateTime lastUpdate;
 	

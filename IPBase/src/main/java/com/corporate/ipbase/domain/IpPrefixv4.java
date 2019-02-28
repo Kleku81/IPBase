@@ -38,25 +38,42 @@ public class IpPrefixv4 extends IpPrefix{
 
 
 
-	  @NonNull
-	  @Size(min=4, max=4 )
+
+
+	public IpPrefixv4(LocalDateTime lastUpdate, byte[] bytes, int mask, int version,
+			@Size(min = 5, message = "Name must be at least 5 characters long") String description) {
+		super.setLastUpdate(lastUpdate);;
+		this.bytes = bytes;
+		this.mask = mask;
+		this.version = version;
+		this.description = description;
+	}
+
+	public IpPrefixv4(@NonNull LocalDateTime lastUpdate,
+			@NonNull @Size(min = 5, message = "Name must be at least 5 characters long") String description) {
+		super();
+		this.description = description;
+	}
+
+
+
+	//@NonNull
+	  //@Size(min=4, max=4 )
 	  private byte[] bytes = new byte[4];
-	  @NonNull
+	  //@NonNull
 	  private int mask; 
-	  @NonNull
+	  //@NonNull
 	  private int version;
+	  //@NonNull
+	  @Size(min=5, message="Name must be at least 5 characters long")
+	  private String description;
 	  @OneToMany(
 		        cascade = CascadeType.ALL,
 		        orphanRemoval = true
 		    )
 	  private List<IpPrefixv4> subNets = new ArrayList<>();
 	  
-	  public IpPrefixv4(@NonNull LocalDateTime lastUpdate, @NonNull byte[] bytes, @NonNull int mask, @NonNull int version) {
-		super(lastUpdate);
-		this.bytes = bytes;
-		this.mask = mask;
-		this.version = version;
-	}
+
 	  
 	  //static private final String IPV4_REGEX = "(([0-1]?[0-9]{1,2}\\.)|(2[0-4][0-9]\\.)|(25[0-5]\\.)){3}(([0-1]?[0-9]{1,2})|(2[0-4][0-9])|(25[0-5]))";
 	  //static private final String IPV4_REGEX = "(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)";
@@ -76,8 +93,6 @@ public class IpPrefixv4 extends IpPrefix{
 	   {          
 	      return IPV4_PATTERN1.matcher(s).matches();
 	   }
-	   
-	   
 
 
 

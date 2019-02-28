@@ -19,6 +19,8 @@
 		<java.version>1.8</java.version>
 		<wro4j.version>1.8.0</wro4j.version>
 		<webjars-bootstrap.version>3.3.6</webjars-bootstrap.version>
+		    <webjars-jquery-ui.version>1.11.4</webjars-jquery-ui.version>
+    <webjars-jquery.version>2.2.4</webjars-jquery.version>
 	</properties>
 
 	<dependencies>
@@ -74,11 +76,26 @@
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
 		<!-- webjar -->
-	<dependency>
-		<groupId>org.webjars</groupId>
-		<artifactId>bootstrap</artifactId>
-		<version>3.3.6</version>
-	</dependency>
+    <!-- webjars -->
+    <dependency>
+      <groupId>org.webjars</groupId>
+      <artifactId>webjars-locator-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.webjars</groupId>
+      <artifactId>jquery</artifactId>
+      <version>${webjars-jquery.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.webjars</groupId>
+      <artifactId>jquery-ui</artifactId>
+      <version>${webjars-jquery-ui.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.webjars</groupId>
+      <artifactId>bootstrap</artifactId>
+      <version>${webjars-bootstrap.version}</version>
+    </dependency>
 		
 		<!-- wro4j -->
 	</dependencies>

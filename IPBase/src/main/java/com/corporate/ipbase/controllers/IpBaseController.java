@@ -31,6 +31,7 @@ import com.corporate.ipbase.data.IpPrefixRepository;
 import com.corporate.ipbase.data.UserRepository;
 import com.corporate.ipbase.domain.IpPrefix;
 import com.corporate.ipbase.domain.IpPrefixv4;
+import com.corporate.ipbase.domain.IpPrefixv4Text;
 import com.corporate.ipbase.domain.User;
 
 import java.util.ArrayList;
@@ -97,6 +98,7 @@ class IpBaseController {
 
     @PostMapping("/user")
     public String greetingSubmit(@Valid User user, Errors errors) {
+    	//System.out.println("request" + request);
     	if (errors.hasErrors()) {
     		System.out.println("Wystąpiły  błedy");
     		return "test_user";
@@ -104,6 +106,22 @@ class IpBaseController {
     	System.out.println(user.toString());
     	userRepo.save(user);
         return "test_user_zap";
+    }
+    @GetMapping("/prefix")
+    public String prefixForm(Model model) {
+        model.addAttribute("ipPrefixv4Text", new IpPrefixv4Text("",""));
+        return "ipform";
+    }
+    @PostMapping("/prefix")
+    public String greetingSubmit(@Valid IpPrefixv4Text ipPrefixv4Text, Errors errors) {
+    	if (errors.hasErrors()) {
+    		System.out.println("Wystąpiły błedy");
+    		return "ipform";
+    	}
+    	ipPrefixv4Text.converter();
+    	System.out.println(ipPrefixv4Text.toString());
+    	//repo.save(ipPrefixv4Text);
+        return "ipform_zap";
     }
 
     /*@GetMapping({ "/vets" })
