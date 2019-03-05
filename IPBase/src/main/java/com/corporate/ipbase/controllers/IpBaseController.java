@@ -110,13 +110,13 @@ class IpBaseController {
     @GetMapping("/prefix")
     public String prefixForm(Model model) {
         model.addAttribute("ipPrefixv4Text", new IpPrefixv4Text("",""));
-        return "ipform";
+        return "testprefix";
     }
     @PostMapping("/prefix")
     public String greetingSubmit(@Valid IpPrefixv4Text ipPrefixv4Text, Errors errors) {
     	if (errors.hasErrors()) {
     		System.out.println("Wystąpiły błedy");
-    		return "ipform";
+    		return "testprefix";
     	}
     	ipPrefixv4Text.converter();
     	System.out.println(ipPrefixv4Text.toString());

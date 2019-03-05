@@ -57,7 +57,7 @@ public class IpPrefixv4 extends IpPrefix{
 
 
 
-	//@NonNull
+	  //@NonNull
 	  //@Size(min=4, max=4 )
 	  private byte[] bytes = new byte[4];
 	  //@NonNull

@@ -23,12 +23,14 @@ public class IpPrefixv4Text {
 
 		String[] prefix_table = new String[] {};
 	    prefix_table = this.getPrefix().split("\\.|\\/");
-		byte[] byte_table = {Integer.parseInt(prefix_table[0],
-							 Integer.parseInt(prefix_table[1],
-						     Integer.parseInt(prefix_table[2],
-						     Integer.parseInt(prefix_table[3]}
+		byte[] byte_table = {Byte.valueOf(prefix_table[0]),
+							 Byte.valueOf(prefix_table[1]),
+							 Byte.valueOf(prefix_table[2]),
+							 Byte.valueOf(prefix_table[3])};
 	    for(byte b : byte_table) {
+	    System.out.println("drukowanie");
 	    System.out.println(b);
+	    System.out.println("koniec drukowania drukowanie");
 	    }
 		return null;
 		
