@@ -120,7 +120,7 @@ class IpBaseController {
     	}
     	ipPrefixv4Text.converter();
     	System.out.println(ipPrefixv4Text.toString());
-    	//repo.save(ipPrefixv4Text);
+    	repo.save(ipPrefixv4Text.converter());
         return "ipform_zap";
     }
 

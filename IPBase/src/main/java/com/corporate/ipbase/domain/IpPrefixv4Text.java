@@ -1,5 +1,7 @@
 package com.corporate.ipbase.domain;
 
+import java.time.LocalDateTime;
+
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
@@ -32,7 +34,7 @@ public class IpPrefixv4Text {
 	    System.out.println(b);
 	    System.out.println("koniec drukowania drukowanie");
 	    }
-		return null;
+		return new IpPrefixv4(LocalDateTime.now(), byte_table, Integer.valueOf(prefix_table[4]),4,this.getDescription());
 		
 	} 
 
