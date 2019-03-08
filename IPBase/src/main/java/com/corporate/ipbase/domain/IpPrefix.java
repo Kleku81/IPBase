@@ -35,6 +35,8 @@ public class IpPrefix {
 	//@NonNull
 	//@Temporal(TemporalType.DATE)
 	private LocalDateTime lastUpdate;
+	//@NonNull 
+	private boolean nested;
 	
 	//@NonNull
 	//@OneToMany

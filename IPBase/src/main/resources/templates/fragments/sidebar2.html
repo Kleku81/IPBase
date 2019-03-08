@@ -1,13 +1,21 @@
 <div th:fragment="submenu" th:remove="tag">
 		<ul class="nested">
 			<li th:each="subprefix : ${prefix.subNets}">
-				<div th:if="${#lists.size(subprefix.subNets)} > '0'" class="caret"
-					th:text="${subprefix.bytes[0]+'.'+subprefix.bytes[1]+'.'+subprefix.bytes[2]+'.'+subprefix.bytes[3]+'/'+subprefix.mask+'  z11'}"/>
+				<div th:if="${#lists.size(subprefix.subNets)} > '0'" class="caret1">
+					<span class="sidebar" th:text="${subprefix.bytes[0]+'.'+subprefix.bytes[1]+'.'+subprefix.bytes[2]+'.'+subprefix.bytes[3]+'/'+subprefix.mask}"/>
+					<span class="sidebar" th:text="'Opis:'+${subprefix.description}"></span>	 
+					<span th:href="${'/products/edit/'}" class="btn1 btn1-default" >Edit</span>
+					<span th:href="${'/products/edit/'}" class="btn1 btn1-danger" >Delete</span>
+					<hr class="new1"></div>
 				
-				<div th:unless="${#lists.size(subprefix.subNets)} > '0'"
-					th:text="${subprefix.bytes[0]+'.'+subprefix.bytes[1]+'.'+subprefix.bytes[2]+'.'+subprefix.bytes[3]+'/'+subprefix.mask+'  z12'}"/>
+				<div th:unless="${#lists.size(subprefix.subNets)} > '0'"  class="last">
+					<span class="sidebar" th:text="${subprefix.bytes[0]+'.'+subprefix.bytes[1]+'.'+subprefix.bytes[2]+'.'+subprefix.bytes[3]+'/'+subprefix.mask}"/>
+					<span class="sidebar" th:text="'Opis:'+${subprefix.description}"></span>	
+					<span th:href="${'/products/edit/'}" class="btn1 btn1-default" >Edit</span>
+					<span th:href="${'/products/edit/'}" class="btn1 btn1-danger" >Delete</span>
+					<hr class="new1"></div>
 			
-		     <span th:text="${#lists.size(subprefix.subNets)} > '0'"> true or false </span> 
+		    <!--  <span th:text="${#lists.size(subprefix.subNets)} > '0'"> true or false </span>  -->
 			<div th:if="${#lists.size(prefix.subNets)} > '0'" th:with="prefix = ${subprefix}" th:include="fragments/sidebar2.html :: submenu" th:remove="tag" /></li>
 			
 	</ul>

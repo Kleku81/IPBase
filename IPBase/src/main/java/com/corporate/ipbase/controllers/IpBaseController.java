@@ -80,14 +80,16 @@ class IpBaseController {
     @RequestMapping(path = "/prefixes", method = RequestMethod.GET)
     public String getAllProducts(Model model) {
     	System.out.println("!!! get All products !!!");
-    	Set<IpPrefixv4> unique = new HashSet<>(repo.findAll());
+    	Set<IpPrefixv4> unique = new HashSet<>(repo.findByNested(false));
     	List<IpPrefixv4> mainList = new ArrayList<>();
     	IpPrefixv4 prefix = new IpPrefixv4();
     	mainList.addAll(unique);
-        model.addAttribute("prefix_list", repo.findAll());
-        model.addAttribute("prefix",prefix);
+        //model.addAttribute("prefix_list", repo.findAll());
+    	model.addAttribute("prefix_list", mainList);
+        //model.addAttribute("prefix",prefix);
         //return "vetList";
-        return "tree_disp";
+        //return "tree_disp";
+    	return "prefix_display.html";
     }
     
     @GetMapping("/user")

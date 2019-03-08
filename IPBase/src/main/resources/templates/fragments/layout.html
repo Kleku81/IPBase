@@ -1,6 +1,8 @@
 <!doctype html>
 <html th:fragment="layout (template, menu)">
 
+
+
   <head>
 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -16,9 +18,161 @@
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    
+   
 
-     <link rel="stylesheet" th:href="@{/resources/css/petclinic.css}"/>   
+      <link rel="stylesheet" th:href="@{/resources/css/petclinic.css}"/>    
      <!-- <link rel="stylesheet" href="/webjars/bootstrap/3.3.6/css/bootstrap.min.css" /> -->  
+	
+	
+	 <style>
+ul /*#myUL*/  {
+  list-style-type: none;
+}
+
+/*#myUL {"src/main/java/com/corporate/ipbase/controllers/IpBaseController.java"
+  margin: 0;
+  padding: 0;"src/main/java/com/corporate/ipbase/controllers/IpBaseController.java"
+}*/
+
+ .caret1 {
+  cursor: cursor;
+  -webkit-user-select: none; /* Safari 3.1+ */
+  -moz-user-select: none; /* Firefox 2+ */
+  -ms-user-select: none; /* IE 10+ */
+  user-select: none;
+}
+
+ .caret1:hover{
+ 	background-color: 	#D3D3D3;
+ 	/*max-width:200px;*/
+ }
+
+ .caret1::before {
+  content: "\25B6"; /*25B6*/
+  color: brown;
+  display: inline-block;
+  margin-right: 6px;
+}
+
+ .caret1-down::before {
+  -ms-transform: rotate(90deg); /* IE 9 */
+  -webkit-transform: rotate(90deg); /* Safari */
+  transform: rotate(90deg);  
+}
+
+ .caret1-left::before {
+  -ms-transform: rotate(180deg); /* IE 9 */
+  -webkit-transform: rotate(180deg); /* Safari */
+  transform: rotate(180deg);  
+}
+
+b {
+  cursor: copy;
+  padding-left: 20px;
+  display: inline-block;
+}
+
+b:before {
+  content: "";
+  border-color: transparent #ec6608;
+  border-style: groove;
+  border-width: 0.35em 0 0.35em 0.45em;
+  display: block;
+  height: 0;
+  width: 0;
+  left: -10px;
+  top: 1.1em;
+  color: #ec6608;
+  position: relative; 
+}
+
+<!--
+.nested { 
+  display: none;
+}
+
+.last {
+
+}
+ .last:hover{
+ 	background-color: 	#D3D3D3;
+ 	/*max-width:200px;*/
+ }
+
+.active {
+  display: block;
+}
+
+k:before {
+  content: 'Tekst przed akapitem '; 
+  display: block;
+}
+
+prefix:hover {
+  background-color: yellow;
+}
+
+
+
+.btn1 {
+
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 3;
+    margin-top: 3;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    /*-ms-touch-action: manipulation;*/
+    touch-action: manipulation;
+    cursor: pointer;
+    /*-webkit-user-select: none;*/
+    -moz-user-select: none;
+    /*-ms-user-select: none;*/
+    /*user-select: none;*/
+    background-image: none;
+    border: 1px solid transparent;
+        /*border-top-color: transparent;
+        border-right-color: transparent;
+        border-bottom-color: transparent;
+        border-left-color: transparent;*/
+    border-radius: 4px;
+
+}
+.btn1-default {
+
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;
+
+}
+
+.btn1-danger {
+
+    color: #fff;
+    background-color: #d9534f;
+    border-color: #d43f3a;
+    }
+hr.new1 {
+border: 0,5px solid black;
+margin-top: 0px;
+margin-bottom: 0px;
+}
+
+span.sidebar {  
+margin-left:10px; 
+margin-right:10px;
+font-size:16px;
+font-family:Helvetica Neue,Helvetica,Arial,sans-serif" 
+}
+
+
+</style>
+	
 
   </head>
 

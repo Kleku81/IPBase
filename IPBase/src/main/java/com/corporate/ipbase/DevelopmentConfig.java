@@ -59,10 +59,15 @@ public class DevelopmentConfig {
 				IpPrefixv4 prefix3 =  new IpPrefixv4(LocalDateTime.now(),bytes3,16,4,"prefix3");
 				IpPrefixv4 prefix4 =  new IpPrefixv4(LocalDateTime.now(),bytes4,24,4,"prefix4");
 				IpPrefixv4 prefix5 =  new IpPrefixv4(LocalDateTime.now(),bytes5,24,4,"prefix5");
+				prefix1.setNested(true);
 				prefix.getSubNets().add(prefix1);
+				prefix2.setNested(true);
 				prefix.getSubNets().add(prefix2);
+				prefix4.setNested(true);
 				prefix3.getSubNets().add(prefix4);
+				prefix5.setNested(true);
 				prefix3.getSubNets().add(prefix5);
+				prefix3.setNested(true);
 				prefix.getSubNets().add(prefix3);
 				repo.save(prefix);
 				

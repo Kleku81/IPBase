@@ -40,15 +40,25 @@ public class IpPrefixv4 extends IpPrefix{
 
 
 
-	public IpPrefixv4(LocalDateTime lastUpdate, byte[] bytes, int mask, int version,
+	public IpPrefixv4(LocalDateTime lastUpdate,boolean nested, byte[] bytes, int mask, int version,
 			@Size(min = 5, message = "Name must be at least 5 characters long") String description) {
-		super.setLastUpdate(lastUpdate);;
+		super.setLastUpdate(lastUpdate);
+		super.setNested(nested);;
 		this.bytes = bytes;
 		this.mask = mask;
 		this.version = version;
 		this.description = description;
 	}
 
+	public IpPrefixv4(LocalDateTime lastUpdate, byte[] bytes, int mask, int version,
+			@Size(min = 5, message = "Name must be at least 5 characters long") String description) {
+		super.setLastUpdate(lastUpdate);
+		
+		this.bytes = bytes;
+		this.mask = mask;
+		this.version = version;
+		this.description = description;
+	}
 	public IpPrefixv4(@NonNull LocalDateTime lastUpdate,
 			@NonNull @Size(min = 5, message = "Name must be at least 5 characters long") String description) {
 		super();

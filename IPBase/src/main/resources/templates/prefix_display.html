@@ -1,0 +1,36 @@
+<html xmlns:th="http://www.thymeleaf.org"
+   th:insert="~{fragments/layout :: layout (~{::body},'owners')}">  
+<head>
+
+</head>
+
+
+<body>
+
+ <!--  <div layout:insert="~{task/alert :: alert}" th:with="type='info', header='Info'" th:remove="tag">
+        /* Implements alert content fragment with simple content */
+        <th:block layout:fragment="alert-content">
+            <p><em>This is a simple list of tasks!</em></p>
+        </th:block>
+    </div>  -->
+    
+    <div th:insert="fragments/sidebar1.html :: submenu"></div>
+    
+
+
+
+<script>
+		var toggler = document.getElementsByClassName("caret1");
+		var i;
+
+		for (i = 0; i < toggler.length; i++) {
+			toggler[i].addEventListener("click", function() {
+				this.parentElement.querySelector(".nested").classList
+						.toggle("active");
+				this.classList.toggle("caret1-down");
+			});
+		}
+</script>
+
+</body>
+</html>
