@@ -27,12 +27,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.corporate.ipbase.data.IpPrefixRepository;
+import com.corporate.ipbase.data.IpPrefixv4Repository;
 import com.corporate.ipbase.data.UserRepository;
 import com.corporate.ipbase.domain.IpPrefix;
 import com.corporate.ipbase.domain.IpPrefixv4;
 import com.corporate.ipbase.domain.IpPrefixv4Text;
 import com.corporate.ipbase.domain.User;
+import com.corporate.ipbase.service.IpPrefixv4Service;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -46,15 +47,15 @@ import javax.validation.Valid;
 @Controller
 class IpBaseController {
 
-    private final IpPrefixRepository repo;
+    private final IpPrefixv4Repository repo;
     private final UserRepository userRepo;
-
+    private final IpPrefixv4Service ipPrefixv4Service;
  
-    
-    public IpBaseController(IpPrefixRepository repo, UserRepository userRepo) {
+	public IpBaseController(IpPrefixv4Repository repo, UserRepository userRepo, IpPrefixv4Service ipPrefixv4Service) {
 		super();
 		this.repo = repo;
 		this.userRepo = userRepo;
+		this.ipPrefixv4Service = ipPrefixv4Service;
 	}
 	@InitBinder
     public void setAllowedFields(WebDataBinder dataBinder) {
@@ -89,6 +90,12 @@ class IpBaseController {
         //model.addAttribute("prefix",prefix);
         //return "vetList";
         //return "tree_disp";
+    	System.out.println("Prefixes from service");
+    	for (IpPrefixv4 prefix_temp : ipPrefixv4Service.getRepo().findByMask(24)){
+    	
+    		System.out.println(prefix_temp);
+    	}
+    	System.out.println("koniec");
     	return "prefix_display.html";
     }
     

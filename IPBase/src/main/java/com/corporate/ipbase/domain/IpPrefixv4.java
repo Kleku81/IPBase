@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.regex.Pattern;
+import java.util.stream.IntStream;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -102,6 +103,36 @@ public class IpPrefixv4 extends IpPrefix{
 	   public static boolean testValid(final String s)
 	   {          
 	      return IPV4_PATTERN1.matcher(s).matches();
+	   }
+	   
+	   public boolean isContained(IpPrefixv4 to_compare_prefix)
+	   {
+		   
+		   if(this.getMask() <= to_compare_prefix.getMask() || to_compare_prefix.getMask() < 8)
+		   { 
+			   return false;
+		   }
+		   int compare_whole_bytes = to_compare_prefix.getMask()/8; 
+		   
+		   for (int i : IntStream.range(0, compare_whole_bytes-1).toArray())
+		   {
+			   if (this.getBytes()[i]!=to_compare_prefix.getBytes()[i])
+			   {
+				   return false;
+			   }
+		   }
+		   
+		   int compare_last_bits = to_compare_prefix.getMask()%8; 
+		   
+		   if (compare_last_bits == 0 || this.getBytes()[compare_whole_bytes]>>compare_last_bits == to_compare_prefix.getBytes()[compare_whole_bytes]>>compare_last_bits)
+		   {
+			   return true; 
+		   }
+		   else 
+		   {	
+			  return false;
+		   }   
+		  
 	   }
 
 

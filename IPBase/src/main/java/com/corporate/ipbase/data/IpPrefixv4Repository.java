@@ -8,9 +8,11 @@ import org.springframework.stereotype.Repository;
 import com.corporate.ipbase.domain.IpPrefixv4;
 
 @Repository
-public interface IpPrefixRepository extends JpaRepository<IpPrefixv4,Long> {
+public interface IpPrefixv4Repository extends JpaRepository<IpPrefixv4,Long> {
 
 	List<IpPrefixv4> findByNested(boolean nested);
+	
+	List<IpPrefixv4> findByMask(int mask);
 }
 
 

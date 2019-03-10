@@ -10,7 +10,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import com.corporate.ipbase.data.IpPrefixRepository;
+import com.corporate.ipbase.data.IpPrefixv4Repository;
 import com.corporate.ipbase.domain.IpPrefixv4;
 
 import inet.ipaddr.IPAddress;
@@ -33,7 +33,7 @@ public class DevelopmentConfig {
 	}*/
 	
 	  @Bean
-	  public CommandLineRunner dataLoader(IpPrefixRepository repo) {
+	  public CommandLineRunner dataLoader(IpPrefixv4Repository repo) {
 		  
 		  return new CommandLineRunner() {
 			
