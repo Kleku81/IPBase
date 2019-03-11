@@ -64,42 +64,42 @@ public class IpPrefixv4 extends IpPrefix{
 
 	  //@NonNull
 	  //@Size(min=4, max=4 )
-	  private byte[] bytes = new byte[4];
+	private byte[] bytes = new byte[4];
 	  //@NonNull
-	  private int mask; 
+	private int mask; 
 	  //@NonNull
-	  private int version;
+	private int version;
 	  //@NonNull
 	  @Size(min=5, message="Name must be at least 5 characters long")
-	  private String description;
+	private String description;
 	  @OneToMany(
 		        cascade = CascadeType.ALL,
 		        orphanRemoval = true
 		    )
-	  private List<IpPrefixv4> subNets = new ArrayList<>();
+	private List<IpPrefixv4> subNets = new ArrayList<>();
 	  
 
 	  
 	  //static private final String IPV4_REGEX = "(([0-1]?[0-9]{1,2}\\.)|(2[0-4][0-9]\\.)|(25[0-5]\\.)){3}(([0-1]?[0-9]{1,2})|(2[0-4][0-9])|(25[0-5]))";
 	  //static private final String IPV4_REGEX = "(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)";
-	  static private final String IPV4_REGEX = "((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\/(3[0-2]|[1-2][0-9]|[1-9])";
+	static private final String IPV4_REGEX = "((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\/(3[0-2]|[1-2][0-9]|[1-9])";
 	  //static private final String IPV4_REGEX = "(?:a{6})*";
-	  static private Pattern IPV4_PATTERN = Pattern.compile(IPV4_REGEX);
+	static private Pattern IPV4_PATTERN = Pattern.compile(IPV4_REGEX);
 	  
-	  static private final String IPV4_REGEX1 = "([a-z][0-9]){3,5}";
-	  static private Pattern IPV4_PATTERN1 = Pattern.compile(IPV4_REGEX1);
+	static private final String IPV4_REGEX1 = "([a-z][0-9]){3,5}";
+	static private Pattern IPV4_PATTERN1 = Pattern.compile(IPV4_REGEX1);
 	  
-	   public static boolean isValidIPV4(final String s)
+	public static boolean isValidIPV4(final String s)
 	   {          
 	      return IPV4_PATTERN.matcher(s).matches();
 	   }
 	   
-	   public static boolean testValid(final String s)
+	public static boolean testValid(final String s)
 	   {          
 	      return IPV4_PATTERN1.matcher(s).matches();
 	   }
 	   
-	   public boolean isContained(IpPrefixv4 to_compare_prefix)
+	public boolean isContained(IpPrefixv4 to_compare_prefix)
 	   {
 		   
 		   if(this.getMask() <= to_compare_prefix.getMask() || to_compare_prefix.getMask() < 8)
@@ -129,6 +129,13 @@ public class IpPrefixv4 extends IpPrefix{
 		  
 	   }
 
+	public String toStringPrefix() {
+		
+		return Byte.toString(this.getBytes()[0])+"."+Byte.toString(this.getBytes()[1])+"."+Byte.toString(this.getBytes()[2])+"."+Byte.toString(this.getBytes()[3])+"/"+Integer.toString(this.getMask());
+		
+	}
+	
+	
 
 
 }

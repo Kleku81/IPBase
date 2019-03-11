@@ -18,6 +18,7 @@ package com.corporate.ipbase.controllers;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -123,15 +124,28 @@ class IpBaseController {
     }
     @PostMapping("/prefix")
     public String greetingSubmit(@Valid IpPrefixv4Text ipPrefixv4Text, Errors errors) {
+    	
+    	/*ObjectError oerror = new ObjectError("checkExistError","message");
+		List<ObjectError> ol = new ArrayList<>();
+		ol.add(oerror);
+		errors.rejectValue("prefix", null, null, "test message");
+    	
+    	for (ObjectError oe : errors.getAllErrors())
+    	{
+    		System.out.println("Error = "+ oe);
+    	}*/
+
     	if (errors.hasErrors()) {
     		System.out.println("Wystąpiły błedy");
+    		
     		return "testprefix";
     	}
     	IpPrefixv4 prefixv4 = ipPrefixv4Text.converter();
     	Optional<IpPrefixv4> prefixv4_opt = ipPrefixv4Service.checkExistance(prefixv4);
     	if(prefixv4_opt.isPresent())
     	{
-    		System.out.println("Prefix który  zawiera: " + prefixv4_opt.get());
+    		errors.rejectValue("prefix", null, null, "Prefix jest  zawarty w "+prefixv4_opt.get().toStringPrefix());
+    		return "testprefix";
     	}
     	System.out.println(ipPrefixv4Text.toString());
     	repo.save(ipPrefixv4Text.converter());
