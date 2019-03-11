@@ -17,8 +17,6 @@ import antlr.collections.impl.IntRange;
 public class IpPrefixv4Service {
 	
 
-
-
 	private final IpPrefixv4Repository repo;
 
 	public IpPrefixv4Service(IpPrefixv4Repository repo) {
@@ -33,8 +31,11 @@ public class IpPrefixv4Service {
 	public Optional<IpPrefixv4> checkExistance(IpPrefixv4 prefix) {
 		
 		Optional<IpPrefixv4> prefix_box = Optional.empty();
-		
-		for (int temp_mask : revRange(8, prefix.getMask()-1).toArray())
+		//System.out.println("revRange print start");
+		//for(int i : revRange(8, prefix.getMask()).toArray())
+		//System.out.println(i);
+		System.out.println("revRange print stop");
+		for (int temp_mask : revRange(8, prefix.getMask()).toArray())
 		{
 			for (IpPrefixv4 temp_prefix : repo.findByMask(temp_mask))
 			{

@@ -127,7 +127,12 @@ class IpBaseController {
     		System.out.println("Wystąpiły błedy");
     		return "testprefix";
     	}
-    	ipPrefixv4Text.converter();
+    	IpPrefixv4 prefixv4 = ipPrefixv4Text.converter();
+    	Optional<IpPrefixv4> prefixv4_opt = ipPrefixv4Service.checkExistance(prefixv4);
+    	if(prefixv4_opt.isPresent())
+    	{
+    		System.out.println("Prefix który  zawiera: " + prefixv4_opt.get());
+    	}
     	System.out.println(ipPrefixv4Text.toString());
     	repo.save(ipPrefixv4Text.converter());
         return "ipform_zap";

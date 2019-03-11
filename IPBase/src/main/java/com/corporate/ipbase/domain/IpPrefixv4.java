@@ -35,12 +35,6 @@ import lombok.ToString;
 public class IpPrefixv4 extends IpPrefix{
 
 
-	  
-
-
-
-
-
 	public IpPrefixv4(LocalDateTime lastUpdate,boolean nested, byte[] bytes, int mask, int version,
 			@Size(min = 5, message = "Name must be at least 5 characters long") String description) {
 		super.setLastUpdate(lastUpdate);

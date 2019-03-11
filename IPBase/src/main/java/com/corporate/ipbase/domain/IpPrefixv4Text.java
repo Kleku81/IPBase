@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import com.corporate.ipbase.validator.SuperPrefixConstraint;
+
 import lombok.Data;
 import lombok.NonNull;
 
@@ -17,9 +19,11 @@ public class IpPrefixv4Text {
 	  private String description;
 	
 	@NonNull
-	@Pattern(regexp = "((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\/(3[0-2]|[1-2][0-9]|[1-9])",message="Bad pattern" )
+	@Pattern(regexp = "((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\/(3[0-2]|[1-2][0-9]|[1-9])",message="Bad pattern")
+	
 	  private String prefix;
 	
+	@SuperPrefixConstraint
 	public IpPrefixv4 converter() {
 		
 
