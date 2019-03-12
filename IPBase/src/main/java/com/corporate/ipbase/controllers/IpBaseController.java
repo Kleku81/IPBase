@@ -144,12 +144,12 @@ class IpBaseController {
     	Optional<IpPrefixv4> prefixv4_opt = ipPrefixv4Service.checkExistance(prefixv4);
     	if(prefixv4_opt.isPresent())
     	{
-    		errors.rejectValue("prefix", null, null, "Prefix jest  zawarty w "+prefixv4_opt.get().toStringPrefix());
+    		errors.rejectValue("prefix", "2345", null, "Prefix jest  zawarty w "+prefixv4_opt.get().toStringPrefix()+"\r\n czy dodać jako podzakrezs dla tego prefix");
     		return "testprefix";
     	}
     	System.out.println(ipPrefixv4Text.toString());
     	repo.save(ipPrefixv4Text.converter());
-        return "ipform_zap";
+    	return "ipform_zap";
     }
 
     /*@GetMapping({ "/vets" })

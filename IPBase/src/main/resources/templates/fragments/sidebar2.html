@@ -4,15 +4,15 @@
 				<div th:if="${#lists.size(subprefix.subNets)} > '0'" class="caret1">
 					<span class="sidebar" th:text="${subprefix.bytes[0]+'.'+subprefix.bytes[1]+'.'+subprefix.bytes[2]+'.'+subprefix.bytes[3]+'/'+subprefix.mask}"/>
 					<span class="sidebar" th:text="'Opis:'+${subprefix.description}"></span>	 
-					<span th:href="${'/products/edit/'}" class="btn1 btn1-default" >Edit</span>
-					<span th:href="${'/products/edit/'}" class="btn1 btn1-danger" >Delete</span>
+					<a th:href="${'/products/edit/'}" class="btn1 btn1-default" >Edit</a>
+					<a th:href="${'/products/edit/'}" class="btn1 btn1-danger" >Delete</a>
 					<hr class="new1"></div>
 				
 				<div th:unless="${#lists.size(subprefix.subNets)} > '0'"  class="last">
 					<span class="sidebar" th:text="${subprefix.bytes[0]+'.'+subprefix.bytes[1]+'.'+subprefix.bytes[2]+'.'+subprefix.bytes[3]+'/'+subprefix.mask}"/>
 					<span class="sidebar" th:text="'Opis:'+${subprefix.description}"></span>	
-					<span th:href="${'/products/edit/'}" class="btn1 btn1-default" >Edit</span>
-					<span th:href="${'/products/edit/'}" class="btn1 btn1-danger" >Delete</span>
+					<a th:href="${'/products/edit/'}" class="btn1 btn1-default" >Edit</a>
+					<a th:href="${'/products/edit/'}" class="btn1 btn1-danger" >Delete</a>
 					<hr class="new1"></div>
 			
 		    <!--  <span th:text="${#lists.size(subprefix.subNets)} > '0'"> true or false </span>  -->

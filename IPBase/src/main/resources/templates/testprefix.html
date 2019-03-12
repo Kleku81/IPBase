@@ -41,9 +41,18 @@
     	<div>
     	<p class="input-group">
     	<input type="text" id="prefix" th:field="*{prefix}" /> 
-    	<span class="validationError"
+    	<!-- <span class="validationError"
 			  th:if="${#fields.hasErrors('prefix')}"
-              th:errors="*{prefix}">Description Error</span> <!--  </p> -->
+              th:errors="*{prefix}">Prefix Error</span> <!--  </p> --> 
+              
+        <th:block th:if="${#fields.hasErrors('prefix')}" th:each="detailedError : ${#fields.detailedErrors('prefix')}">
+            <span th:if="${detailedError.getCode() != '2345'}" class="textError" th:text="${detailedError.getMessage()}"/>
+    		<span th:if="${detailedError.getCode() == '2345'}" class="textError" th:text="${detailedError.getMessage()}"/>
+    		<a th:if="${detailedError.getCode() == '2345'}"  th:href="${'/prefixes'}" class="btn1 btn1-default" >Edit</a>
+    		
+    		<!-- <td><a th:href="${'/products/delete/' + product.id}" class="btn btn-danger">Delete</a></td>  -->
+		</th:block> 
+              
         </p>
         </div>
        <br/> 
