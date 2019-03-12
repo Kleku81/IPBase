@@ -7,10 +7,11 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import com.corporate.ipbase.domain.IpPrefixv4;
+import com.corporate.ipbase.domain.IpPrefixv4Text;
 import com.corporate.ipbase.service.IpPrefixv4Service;
 
 @Component
-public class SuperPrefixValidator implements ConstraintValidator<SuperPrefixConstraint, IpPrefixv4> {
+public class SuperPrefixValidator implements ConstraintValidator<SuperPrefixConstraint, IpPrefixv4Text>{
 	
 	IpPrefixv4Service prefixService; 
 	
@@ -25,11 +26,12 @@ public class SuperPrefixValidator implements ConstraintValidator<SuperPrefixCons
     }
 
     @Override
-    public boolean isValid(IpPrefixv4 prefix, ConstraintValidatorContext cxt) {
+    public boolean isValid(IpPrefixv4Text prefix, ConstraintValidatorContext cxt) {
     	
     	System.out.println("!!!!!!Validacja!!!!!");
-        
-    	return !(prefixService.checkExistance(prefix).isPresent()); 		
+    	
+    	
+    	return !(prefixService.checkExistance(prefix.converter()).isPresent()); 		
 }
 
 }
