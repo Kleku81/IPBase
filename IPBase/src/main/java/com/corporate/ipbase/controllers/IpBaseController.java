@@ -144,7 +144,11 @@ class IpBaseController {
     	Optional<IpPrefixv4> prefixv4_opt = ipPrefixv4Service.checkExistance(prefixv4);
     	if(prefixv4_opt.isPresent())
     	{
+<<<<<<< HEAD
     		errors.rejectValue("prefix", "2345", null, "Prefix jest  zawarty w "+prefixv4_opt.get().toStringPrefix()+"\r\n czy dodać jako podzakrezs dla tego prefix");
+=======
+    		errors.rejectValue("prefix", "2345", null, "Prefix jest  zawarty w "+prefixv4_opt.get().toStringPrefix());
+>>>>>>> branch 'master' of https://github.com/Kleku81/IPBase.git
     		return "testprefix";
     	}
     	System.out.println(ipPrefixv4Text.toString());

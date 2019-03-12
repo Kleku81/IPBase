@@ -1,11 +1,16 @@
 <div th:fragment="submenu" th:remove="tag">
 		<ul>
 			<li th:each="prefix : ${prefix_list}">
-				<div th:if="${#lists.size(prefix.subNets)} > '0' "class="caret1">
+				<div th:if="${#lists.size(prefix.subNets)} > '0'" class="caret1">
 					<span  class="sidebar" th:text="${prefix.bytes[0]+'.'+prefix.bytes[1]+'.'+prefix.bytes[2]+'.'+prefix.bytes[3]+'/'+prefix.mask}"/>
 					<span  class="sidebar" th:text="'Opis:'+${prefix.description}"></span>	
+<<<<<<< HEAD
 					<a   th:href="${'/products/edit/'}" class="btn1 btn1-default" >Edit</a>
 					<a   th:href="${'/products/edit/'}" class="btn1 btn1-danger" >Delete</a>
+=======
+					<a  th:href="${'/prefix'}" class="btn1 btn1-default" >Edit</a>
+					<a  th:href="${'/products/edit/'}" class="btn1 btn1-danger" >Delete</a>
+>>>>>>> branch 'master' of https://github.com/Kleku81/IPBase.git
 					<hr class="new1"></div>
 				
 				<div th:unless="${#lists.size(prefix.subNets)} > '0'" class="last">
