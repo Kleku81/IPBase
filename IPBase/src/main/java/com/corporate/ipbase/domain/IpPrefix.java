@@ -12,6 +12,9 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.InheritanceType;
 
 import lombok.AllArgsConstructor;
@@ -22,19 +25,22 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 @Data
-@RequiredArgsConstructor
 //@NoArgsConstructor
 @MappedSuperclass
 @Inheritance(strategy = InheritanceType.JOINED)
 public class IpPrefix {
 	 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private final Long id = -1L;
-	
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+	private String id;
 	//@NonNull
 	//@Temporal(TemporalType.DATE)
+	private LocalDateTime creationDate;
 	private LocalDateTime lastUpdate;
+	private String AS;
+	private String VRF;
+	private String version; 
 	//@NonNull 
 	private boolean nested;
 	

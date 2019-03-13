@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.corporate.ipbase.domain.IpPrefixv4;
 
 @Repository
-public interface IpPrefixv4Repository extends JpaRepository<IpPrefixv4,Long> {
+public interface IpPrefixv4Repository extends JpaRepository<IpPrefixv4,String> {
 
 	List<IpPrefixv4> findByNested(boolean nested);
 	

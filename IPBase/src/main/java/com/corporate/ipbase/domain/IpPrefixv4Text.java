@@ -11,7 +11,7 @@ import lombok.Data;
 import lombok.NonNull;
 
 @Data
-public class IpPrefixv4Text {
+public class IpPrefixv4Text extends IpPrefix{
 	
 
 	@NonNull
@@ -23,7 +23,7 @@ public class IpPrefixv4Text {
 	
 	  private String prefix;
 	
-	@SuperPrefixConstraint
+	
 	public IpPrefixv4 converter() {
 		
 
@@ -38,7 +38,21 @@ public class IpPrefixv4Text {
 	    System.out.println(b);
 	    System.out.println("koniec drukowania drukowanie");
 	    }
-		return new IpPrefixv4(LocalDateTime.now(), byte_table, Integer.valueOf(prefix_table[4]),4,this.getDescription());
+		//return new IpPrefixv4(LocalDateTime.now(), byte_table, Integer.valueOf(prefix_table[4]),4,this.getDescription());
+	    if(this.getCreationDate()== null)
+	    {
+	    	this.setCreationDate(LocalDateTime.now()); 
+	    }
+		
+		return new IpPrefixv4(this.getLastUpdate(),
+				  			  this.getCreationDate(),
+				              this.getAS(),
+				              this.getVRF(),
+				              this.isNested(), 
+				              byte_table, 
+				              Integer.valueOf(prefix_table[4]), 
+				              this.get
+	           	              this.getDescription()); 
 		
 	} 
 

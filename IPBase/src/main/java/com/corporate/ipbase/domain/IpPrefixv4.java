@@ -35,23 +35,32 @@ import lombok.ToString;
 public class IpPrefixv4 extends IpPrefix{
 
 
-	public IpPrefixv4(LocalDateTime lastUpdate,boolean nested, byte[] bytes, int mask, int version,
-			@Size(min = 5, message = "Name must be at least 5 characters long") String description) {
+	public IpPrefixv4(LocalDateTime lastUpdate,
+					  LocalDateTime creationDate,
+					  String AS,
+					  String VRF,
+					  boolean nested, byte[] bytes, 
+					  int mask, 
+					  String version,
+		           	  @Size(min = 5, message = "Name must be at least 5 characters long") String description) {
 		super.setLastUpdate(lastUpdate);
-		super.setNested(nested);;
+		super.setCreationDate(creationDate);
+		super.setAS(AS);
+		super.setVRF(VRF);
+		super.setNested(nested);
+		super.setVersion(version);
 		this.bytes = bytes;
 		this.mask = mask;
-		this.version = version;
+		
 		this.description = description;
 	}
 
-	public IpPrefixv4(LocalDateTime lastUpdate, byte[] bytes, int mask, int version,
+	public IpPrefixv4(LocalDateTime lastUpdate, byte[] bytes, int mask,  String version,		
 			@Size(min = 5, message = "Name must be at least 5 characters long") String description) {
 		super.setLastUpdate(lastUpdate);
-		
+		super.setVersion(version);
 		this.bytes = bytes;
 		this.mask = mask;
-		this.version = version;
 		this.description = description;
 	}
 	public IpPrefixv4(@NonNull LocalDateTime lastUpdate,
@@ -60,15 +69,13 @@ public class IpPrefixv4 extends IpPrefix{
 		this.description = description;
 	}
 
-
-
 	  //@NonNull
 	  //@Size(min=4, max=4 )
 	private byte[] bytes = new byte[4];
 	  //@NonNull
 	private int mask; 
 	  //@NonNull
-	private int version;
+	//private int version;
 	  //@NonNull
 	  @Size(min=5, message="Name must be at least 5 characters long")
 	private String description;
@@ -77,8 +84,6 @@ public class IpPrefixv4 extends IpPrefix{
 		        orphanRemoval = true
 		    )
 	private List<IpPrefixv4> subNets = new ArrayList<>();
-	  
-
 	  
 	  //static private final String IPV4_REGEX = "(([0-1]?[0-9]{1,2}\\.)|(2[0-4][0-9]\\.)|(25[0-5]\\.)){3}(([0-1]?[0-9]{1,2})|(2[0-4][0-9])|(25[0-5]))";
 	  //static private final String IPV4_REGEX = "(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)";
@@ -135,6 +140,16 @@ public class IpPrefixv4 extends IpPrefix{
 		
 	}
 	
+	
+	public IpPrefixv4Text converter() {
+		
+	
+		String string_prefix = this.toStringPrefix();
+
+		
+		return new IpPrefixv4Text(LocalDateTime.now(), byte_table, Integer.valueOf(prefix_table[4]),4,this.getDescription());
+		
+	} 
 	
 
 

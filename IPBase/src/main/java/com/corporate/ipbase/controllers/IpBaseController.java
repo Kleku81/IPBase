@@ -23,6 +23,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -144,11 +145,8 @@ class IpBaseController {
     	Optional<IpPrefixv4> prefixv4_opt = ipPrefixv4Service.checkExistance(prefixv4);
     	if(prefixv4_opt.isPresent())
     	{
-<<<<<<< HEAD
+
     		errors.rejectValue("prefix", "2345", null, "Prefix jest  zawarty w "+prefixv4_opt.get().toStringPrefix()+"\r\n czy dodać jako podzakrezs dla tego prefix");
-=======
-    		errors.rejectValue("prefix", "2345", null, "Prefix jest  zawarty w "+prefixv4_opt.get().toStringPrefix());
->>>>>>> branch 'master' of https://github.com/Kleku81/IPBase.git
     		return "testprefix";
     	}
     	System.out.println(ipPrefixv4Text.toString());
@@ -156,6 +154,22 @@ class IpBaseController {
     	return "ipform_zap";
     }
 
+    @RequestMapping(path = "/prefix/edit/{id}", method = RequestMethod.GET)
+    public String editProduct(Model model, @PathVariable(value = "id") String id) {
+    	
+    	Optional<IpPrefixv4> opt_prefixv4 =  ipPrefixv4Service.getRepo().findById(id);
+    	if((opt_prefixv4.isPresent())) {
+    		model.addAttribute("product",opt_prefixv4.get());
+    		return "edit_prefix";
+    	}
+    	return "prefix_does_not_exist";
+    }
+
+    /*@RequestMapping(path = "/prefix/delete/{id}", method = RequestMethod.GET)
+    public String deleteProduct(@PathVariable(name = "id") String id) {
+        productRepository.delete(id);
+        return "redirect:/products";
+    }*/
     /*@GetMapping({ "/vets" })
     public @ResponseBody IpList showResourcesVetList() {
         // Here we are returning an object of type 'Vets' rather than a collection of Vet
