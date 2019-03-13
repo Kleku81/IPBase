@@ -14,14 +14,44 @@ import lombok.NonNull;
 public class IpPrefixv4Text extends IpPrefix{
 	
 
-	@NonNull
-	@Size(min=5, message="Name must be at least 5 characters long")
-	  private String description;
+
+	
 	
 	@NonNull
 	@Pattern(regexp = "((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\/(3[0-2]|[1-2][0-9]|[1-9])",message="Bad pattern")
+	private String prefix;
 	
-	  private String prefix;
+	
+	//==========
+	public IpPrefixv4Text(LocalDateTime lastUpdate,
+					  LocalDateTime creationDate,
+					  String prefix,
+					  String AS,
+					  String VRF,
+					  boolean nested,  
+					  String version,
+		           	  @Size(min = 5, message = "Name must be at least 5 characters long") String description) {
+	super.setLastUpdate(lastUpdate);
+	super.setCreationDate(creationDate);
+	super.setAS(AS);
+	super.setVRF(VRF);
+	super.setNested(nested);
+	super.setVersion(version);
+	this.prefix = prefix;
+	super.setDescription(description);
+	}
+	
+	public IpPrefixv4Text() {
+		super.setLastUpdate(null);
+		super.setCreationDate(null);
+		super.setAS("");
+		super.setVRF("");
+		super.setNested(false);
+		super.setVersion("");
+		this.prefix ="";
+		super.setDescription("");
+	}
+   
 	
 	
 	public IpPrefixv4 converter() {
@@ -51,7 +81,7 @@ public class IpPrefixv4Text extends IpPrefix{
 				              this.isNested(), 
 				              byte_table, 
 				              Integer.valueOf(prefix_table[4]), 
-				              this.get
+				              this.getVersion(),
 	           	              this.getDescription()); 
 		
 	} 

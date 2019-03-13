@@ -120,7 +120,7 @@ class IpBaseController {
     }
     @GetMapping("/prefix")
     public String prefixForm(Model model) {
-        model.addAttribute("ipPrefixv4Text", new IpPrefixv4Text("",""));
+        model.addAttribute("ipPrefixv4Text", new IpPrefixv4Text());
         return "testprefix";
     }
     @PostMapping("/prefix")

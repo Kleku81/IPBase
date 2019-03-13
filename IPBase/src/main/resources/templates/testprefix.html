@@ -59,6 +59,38 @@
         </p>
         </div>
        <br/> 
+       
+          	<!--  AS -->
+    	
+    	<div class="col-xs-1 col-sm-2"> <!--   -->
+            <label for="AS">AS</label>
+        </div>
+    	
+    	<div>
+    	<p class="input-group">
+    	<input type="text" id="AS" th:field="*{AS}" /> 
+    	<span class="validationError"
+			  th:if="${#fields.hasErrors('AS')}"
+              th:errors="*{AS}">AS Error</span> <!--  </p> -->
+        </p>
+        </div>
+       <br/> 
+       
+            <!--  VRF -->
+    	
+    	<div class="col-xs-1 col-sm-2"> <!--   -->
+            <label for="VRF">VRF</label>
+        </div>
+    	
+    	<div>
+    	<p class="input-group">
+    	<input type="text" id="VRF" th:field="*{VRF}" /> 
+    	<span class="validationError"
+			  th:if="${#fields.hasErrors('VRF')}"
+              th:errors="*{VRF}">VRF Error</span> <!--  </p> -->
+        </p>
+        </div>
+       <br/> 
               
          <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
         

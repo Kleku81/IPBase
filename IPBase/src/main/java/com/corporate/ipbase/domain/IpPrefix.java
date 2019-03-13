@@ -12,6 +12,7 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -25,7 +26,7 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 @Data
-//@NoArgsConstructor
+@NoArgsConstructor
 @MappedSuperclass
 @Inheritance(strategy = InheritanceType.JOINED)
 public class IpPrefix {
@@ -43,6 +44,9 @@ public class IpPrefix {
 	private String version; 
 	//@NonNull 
 	private boolean nested;
+	@NonNull
+	@Size(min=5, message="Name must be at least 5 characters long")
+	private String description; 
 	
 	//@NonNull
 	//@OneToMany

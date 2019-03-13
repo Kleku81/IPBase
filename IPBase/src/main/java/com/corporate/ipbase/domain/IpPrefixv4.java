@@ -147,10 +147,14 @@ public class IpPrefixv4 extends IpPrefix{
 		String string_prefix = this.toStringPrefix();
 
 		
-		return new IpPrefixv4Text(LocalDateTime.now(), byte_table, Integer.valueOf(prefix_table[4]),4,this.getDescription());
-		
+		return new IpPrefixv4Text(this.getLastUpdate(),
+								  this.getCreationDate(), 
+								  string_prefix, 
+								  this.getAS(),
+								  this.getVRF(),
+								  this.isNested(),
+								  this.getVersion(),
+								  this.getDescription());
 	} 
 	
-
-
 }
