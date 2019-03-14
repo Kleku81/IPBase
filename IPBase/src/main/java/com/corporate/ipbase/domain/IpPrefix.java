@@ -15,6 +15,7 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.InheritanceType;
 
@@ -31,13 +32,13 @@ import lombok.RequiredArgsConstructor;
 @Inheritance(strategy = InheritanceType.JOINED)
 public class IpPrefix {
 	 
-	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "system-uuid")
-    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
-	private String id;
+
 	//@NonNull
 	//@Temporal(TemporalType.DATE)
+	//@Temporal(DATE)
+	@DateTimeFormat (pattern="yyyy-MMM-dd' 'HH:mm:ss")
 	private LocalDateTime creationDate;
+	@DateTimeFormat (pattern="yyyy-MMM-dd' 'HH:mm:ss")
 	private LocalDateTime lastUpdate;
 	private String AS;
 	private String VRF;

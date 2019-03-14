@@ -1,6 +1,7 @@
 package com.corporate.ipbase.domain;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -8,29 +9,34 @@ import javax.validation.constraints.Size;
 import com.corporate.ipbase.validator.SuperPrefixConstraint;
 
 import lombok.Data;
+import lombok.Getter;
 import lombok.NonNull;
+import lombok.Setter;
 
-@Data
+
 public class IpPrefixv4Text extends IpPrefix{
 	
 
 
 	
-	
+	private String id;
 	@NonNull
 	@Pattern(regexp = "((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\/(3[0-2]|[1-2][0-9]|[1-9])",message="Bad pattern")
 	private String prefix;
 	
 	
 	//==========
-	public IpPrefixv4Text(LocalDateTime lastUpdate,
-					  LocalDateTime creationDate,
-					  String prefix,
-					  String AS,
-					  String VRF,
-					  boolean nested,  
-					  String version,
-		           	  @Size(min = 5, message = "Name must be at least 5 characters long") String description) {
+	public IpPrefixv4Text(
+			 				String id,
+							LocalDateTime lastUpdate,
+							LocalDateTime creationDate,
+							String prefix,
+							String AS,
+							String VRF,
+							boolean nested,  
+							String version,
+							@Size(min = 5, message = "Name must be at least 5 characters long") String description) {
+	this.setId(id);
 	super.setLastUpdate(lastUpdate);
 	super.setCreationDate(creationDate);
 	super.setAS(AS);
@@ -73,8 +79,16 @@ public class IpPrefixv4Text extends IpPrefix{
 	    {
 	    	this.setCreationDate(LocalDateTime.now()); 
 	    }
+	    
+	    if(this.getLastUpdate()== null)
+	    {
+	    	this.setLastUpdate(LocalDateTime.now()); 
+	    }
+	    
 		
-		return new IpPrefixv4(this.getLastUpdate(),
+		return new IpPrefixv4(
+						      this.getId(),
+							  this.getLastUpdate(),
 				  			  this.getCreationDate(),
 				              this.getAS(),
 				              this.getVRF(),
@@ -84,6 +98,29 @@ public class IpPrefixv4Text extends IpPrefix{
 				              this.getVersion(),
 	           	              this.getDescription()); 
 		
+	}
+
+	@Override
+	public String toString() {
+		return "IpPrefixv4Text [prefix=" + prefix + "]";
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		System.out.println("Wywołanie setId("+id+")");
+		this.id = id;
+		System.out.println("Id po set ID " + this.id);
+	}
+
+	public String getPrefix() {
+		return prefix;
+	}
+
+	public void setPrefix(String prefix) {
+		this.prefix = prefix;
 	} 
 
 }

@@ -82,7 +82,6 @@ class IpBaseController {
 
     @RequestMapping(path = "/prefixes", method = RequestMethod.GET)
     public String getAllProducts(Model model) {
-    	System.out.println("!!! get All products !!!");
     	Set<IpPrefixv4> unique = new HashSet<>(repo.findByNested(false));
     	List<IpPrefixv4> mainList = new ArrayList<>();
     	IpPrefixv4 prefix = new IpPrefixv4();
@@ -92,13 +91,46 @@ class IpBaseController {
         //model.addAttribute("prefix",prefix);
         //return "vetList";
         //return "tree_disp";
-    	System.out.println("Prefixes from service");
+    	//System.out.println("Prefixes from service");
     	for (IpPrefixv4 prefix_temp : ipPrefixv4Service.getRepo().findByMask(24)){
     	
-    		System.out.println(prefix_temp);
+    		//System.out.println(prefix_temp);
     	}
-    	System.out.println("koniec");
-    	return "prefix_display.html";
+    	//System.out.println("koniec");
+    	return "prefix_display";
+    }
+    
+    @PostMapping("/prefixes")
+    public String editPrefixSubmit(@Valid IpPrefixv4Text ipPrefixv4Text, Errors errors) {
+    	
+    	/*ObjectError oerror = new ObjectError("checkExistError","message");
+		List<ObjectError> ol = new ArrayList<>();
+		ol.add(oerror);
+		errors.rejectValue("prefix", null, null, "test message");
+    	
+    	for (ObjectError oe : errors.getAllErrors())
+    	{
+    		System.out.println("Error = "+ oe);
+    	}*/
+
+    	if (errors.hasErrors()) {
+    		System.out.println("Wystąpiły błedy");
+    		
+    		return "testprefixedit";
+    	}
+    	IpPrefixv4 prefixv4 = ipPrefixv4Text.converter();
+    	Optional<IpPrefixv4> prefixv4_opt = ipPrefixv4Service.checkExistance(prefixv4);
+    	if(prefixv4_opt.isPresent())
+    	{
+
+    		errors.rejectValue("prefix", "2345", null, "Prefix jest  zawarty w "+prefixv4_opt.get().toStringPrefix()+"\r\n czy dodać jako podzakrezs dla tego prefix");
+    		return "testprefixedit";
+    	}
+    	System.out.println("Id prefixu text = " + ipPrefixv4Text.getId());
+    	IpPrefixv4 prefix = ipPrefixv4Text.converter();
+    	System.out.println("Id prefix do zapisu = "+ prefix.getId());
+    	repo.save(prefix);
+    	return "redirect:/prefixes";
     }
     
     @GetMapping("/user")
@@ -159,8 +191,13 @@ class IpBaseController {
     	
     	Optional<IpPrefixv4> opt_prefixv4 =  ipPrefixv4Service.getRepo().findById(id);
     	if((opt_prefixv4.isPresent())) {
-    		model.addAttribute("product",opt_prefixv4.get());
-    		return "edit_prefix";
+    		IpPrefixv4Text text_prefix = opt_prefixv4.get().converter();
+    		System.out.println("!!!!!!prefix tekst  to string start");
+    		System.out.println(text_prefix.toString());
+    		System.out.println("!!!!!!prefix tekst  to string start");
+    		
+    		model.addAttribute("ipPrefixv4Text",text_prefix );
+    		return "testprefixedit";
     	}
     	return "prefix_does_not_exist";
     }

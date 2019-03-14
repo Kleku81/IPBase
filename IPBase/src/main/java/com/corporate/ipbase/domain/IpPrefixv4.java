@@ -15,6 +15,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import inet.ipaddr.IPAddress;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -35,7 +37,9 @@ import lombok.ToString;
 public class IpPrefixv4 extends IpPrefix{
 
 
-	public IpPrefixv4(LocalDateTime lastUpdate,
+	public IpPrefixv4(
+					  String id,
+					  LocalDateTime lastUpdate,
 					  LocalDateTime creationDate,
 					  String AS,
 					  String VRF,
@@ -43,6 +47,7 @@ public class IpPrefixv4 extends IpPrefix{
 					  int mask, 
 					  String version,
 		           	  @Size(min = 5, message = "Name must be at least 5 characters long") String description) {
+		this.setId(id);
 		super.setLastUpdate(lastUpdate);
 		super.setCreationDate(creationDate);
 		super.setAS(AS);
@@ -51,7 +56,6 @@ public class IpPrefixv4 extends IpPrefix{
 		super.setVersion(version);
 		this.bytes = bytes;
 		this.mask = mask;
-		
 		this.description = description;
 	}
 
@@ -69,6 +73,10 @@ public class IpPrefixv4 extends IpPrefix{
 		this.description = description;
 	}
 
+	@Id
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+	private String id;
 	  //@NonNull
 	  //@Size(min=4, max=4 )
 	private byte[] bytes = new byte[4];
@@ -143,11 +151,13 @@ public class IpPrefixv4 extends IpPrefix{
 	
 	public IpPrefixv4Text converter() {
 		
-	
+		
 		String string_prefix = this.toStringPrefix();
 
 		
-		return new IpPrefixv4Text(this.getLastUpdate(),
+		return new IpPrefixv4Text(
+								  this.getId(),
+								  this.getLastUpdate(),
 								  this.getCreationDate(), 
 								  string_prefix, 
 								  this.getAS(),
@@ -156,5 +166,6 @@ public class IpPrefixv4 extends IpPrefix{
 								  this.getVersion(),
 								  this.getDescription());
 	} 
-	
+		
+
 }
