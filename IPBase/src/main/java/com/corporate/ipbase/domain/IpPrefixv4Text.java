@@ -69,11 +69,11 @@ public class IpPrefixv4Text extends IpPrefix{
 							 Byte.valueOf(prefix_table[1]),
 							 Byte.valueOf(prefix_table[2]),
 							 Byte.valueOf(prefix_table[3])};
-	    for(byte b : byte_table) {
+	   /* for(byte b : byte_table) {
 	    System.out.println("drukowanie");
 	    System.out.println(b);
 	    System.out.println("koniec drukowania drukowanie");
-	    }
+	    }*/
 		//return new IpPrefixv4(LocalDateTime.now(), byte_table, Integer.valueOf(prefix_table[4]),4,this.getDescription());
 	    if(this.getCreationDate()== null)
 	    {

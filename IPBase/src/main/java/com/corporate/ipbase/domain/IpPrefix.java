@@ -26,7 +26,7 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
-@Data
+
 @NoArgsConstructor
 @MappedSuperclass
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -47,7 +47,51 @@ public class IpPrefix {
 	private boolean nested;
 	@NonNull
 	@Size(min=5, message="Name must be at least 5 characters long")
-	private String description; 
+	private String description;
+	public LocalDateTime getCreationDate() {
+		return creationDate;
+	}
+	public void setCreationDate(LocalDateTime creationDate) {
+		this.creationDate = creationDate;
+	}
+	public LocalDateTime getLastUpdate() {
+		return lastUpdate;
+	}
+	public void setLastUpdate(LocalDateTime lastUpdate) {
+		this.lastUpdate = lastUpdate;
+	}
+	public String getAS() {
+		return AS;
+	}
+	public void setAS(String aS) {
+		AS = aS;
+	}
+	public String getVRF() {
+		return VRF;
+	}
+	public void setVRF(String vRF) {
+		VRF = vRF;
+	}
+	public String getVersion() {
+		return version;
+	}
+	public void setVersion(String version) {
+		this.version = version;
+	}
+	public boolean isNested() {
+		return nested;
+	}
+	public void setNested(boolean nested) {
+		this.nested = nested;
+	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		System.out.println("Wywołanie setDescription("+description+")");
+		this.description = description;
+		System.out.println("Description po setDescription = "+ this.getDescription());
+	} 
 	
 	//@NonNull
 	//@OneToMany

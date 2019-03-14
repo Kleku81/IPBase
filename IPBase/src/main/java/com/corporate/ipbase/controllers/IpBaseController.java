@@ -59,10 +59,10 @@ class IpBaseController {
 		this.userRepo = userRepo;
 		this.ipPrefixv4Service = ipPrefixv4Service;
 	}
-	@InitBinder
+	/*@InitBinder
     public void setAllowedFields(WebDataBinder dataBinder) {
         dataBinder.setDisallowedFields("id");
-    }
+    }*/
     @RequestMapping(path = "/")
     public String index() {
         return "index";
@@ -103,6 +103,7 @@ class IpBaseController {
     @PostMapping("/prefixes")
     public String editPrefixSubmit(@Valid IpPrefixv4Text ipPrefixv4Text, Errors errors) {
     	
+    	System.out.println("Post prefixes start !!!");
     	/*ObjectError oerror = new ObjectError("checkExistError","message");
 		List<ObjectError> ol = new ArrayList<>();
 		ol.add(oerror);
@@ -130,6 +131,8 @@ class IpBaseController {
     	IpPrefixv4 prefix = ipPrefixv4Text.converter();
     	System.out.println("Id prefix do zapisu = "+ prefix.getId());
     	repo.save(prefix);
+    	
+    	System.out.println("Post prefixes stop !!!");
     	return "redirect:/prefixes";
     }
     
