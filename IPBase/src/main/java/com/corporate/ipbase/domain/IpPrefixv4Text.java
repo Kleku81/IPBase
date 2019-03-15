@@ -48,6 +48,7 @@ public class IpPrefixv4Text extends IpPrefix{
 	}
 	
 	public IpPrefixv4Text() {
+		System.out.println("Wywołanie konstruktora default IpPrefixv4Text()"); 
 		super.setLastUpdate(null);
 		super.setCreationDate(null);
 		super.setAS("");
@@ -122,5 +123,21 @@ public class IpPrefixv4Text extends IpPrefix{
 	public void setPrefix(String prefix) {
 		this.prefix = prefix;
 	} 
+	
+	public boolean compare(IpPrefixv4Text to_compare_prefix) {
+		
+		System.out.println("Value this.getAS() == to_compare_prefix.getAS() = " + this.getAS().equals(to_compare_prefix.getAS()));
+		
+		if (this.getAS().equals(to_compare_prefix.getAS()) &&
+			this.getDescription().equals(to_compare_prefix.getDescription()) &&
+			this.getPrefix().equals(to_compare_prefix.getPrefix()) &&
+			this.getVRF().equals(to_compare_prefix.getVRF()))
+		{	
+			return true;
+		}
+		
+		return false;
+	}
+	
 
 }

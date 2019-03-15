@@ -11,7 +11,7 @@
     </div>
 
 <h1>Form</h1>
-    <form action="#" class="form-horizontal" th:action="@{/prefixes}" th:object="${ipPrefixv4Text}" method="post">
+    <form action="#" class="form-horizontal" th:action="@{/prefix/edit/{id}(id=${ipPrefixv4Text.id})}" th:object="${ipPrefixv4Text}" method="post">
     	  <div class="form-group row flex-v-center">
     	  
         <!--  ID -->
@@ -22,7 +22,7 @@
     	
     	<div>
     	<p class="input-group">
-    	<input type="text" id="id" th:field="*{id}" /> 
+    	<input type="text" id="id" th:field="*{id}" readonly /> 
     	<span class="validationError"
 			  th:if="${#fields.hasErrors('id')}"
               th:errors="*{id}">Creation Time</span> 
@@ -38,7 +38,7 @@
     	
     	<div>
     	<p class="input-group">
-    	<input type="text" id="creationDate" th:field="*{creationDate}" disabled/> 
+    	<input type="text" id="creationDate" th:field="*{creationDate}" readonly/> 
     	<span class="validationError"
 			  th:if="${#fields.hasErrors('creationDate')}"
               th:errors="*{creationDeate}">Creation Time</span> 
@@ -54,7 +54,7 @@
     	
     	<div>
     	<p class="input-group">
-    	<input type="text" id="lastUpdate" th:field="*{lastUpdate}" disabled/> 
+    	<input type="text" id="lastUpdate" th:field="*{lastUpdate}" readonly/> 
     	<span class="validationError"
 			  th:if="${#fields.hasErrors('lastUpdate')}"
               th:errors="*{lastUpdate}">Last Update Time</span> 
@@ -140,7 +140,9 @@
         </div>
        <br/> 
               
-         <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+         <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /> <a href="/prefixes">
+   <input type="button" value="Close" />
+</a></p>
         
         </div>
     </form>

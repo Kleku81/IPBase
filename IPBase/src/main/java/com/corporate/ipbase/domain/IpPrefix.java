@@ -52,12 +52,14 @@ public class IpPrefix {
 		return creationDate;
 	}
 	public void setCreationDate(LocalDateTime creationDate) {
+		System.out.println("#####Wywołanie setCreationDate("+creationDate+")");
 		this.creationDate = creationDate;
 	}
 	public LocalDateTime getLastUpdate() {
 		return lastUpdate;
 	}
 	public void setLastUpdate(LocalDateTime lastUpdate) {
+		System.out.println("#####Wywołanie setLastUpdate("+lastUpdate+")");
 		this.lastUpdate = lastUpdate;
 	}
 	public String getAS() {
