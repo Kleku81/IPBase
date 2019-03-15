@@ -166,6 +166,18 @@ public class IpPrefixv4 extends IpPrefix{
 								  this.getVersion(),
 								  this.getDescription());
 	} 
+	
+	static public byte[] stringToBytes(String prefix)
+	{
+		
+	    String[] prefix_table = prefix.split("\\.|\\/");
+		byte[] byte_table = {Byte.valueOf(prefix_table[0]),
+							 Byte.valueOf(prefix_table[1]),
+							 Byte.valueOf(prefix_table[2]),
+							 Byte.valueOf(prefix_table[3])};
+		
+		return byte_table;
+	}
 		
 
 }

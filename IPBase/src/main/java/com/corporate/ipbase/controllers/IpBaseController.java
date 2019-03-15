@@ -20,6 +20,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -38,6 +39,7 @@ import com.corporate.ipbase.domain.IpPrefixv4Text;
 import com.corporate.ipbase.domain.User;
 import com.corporate.ipbase.service.IpPrefixv4Service;
 
+import java.beans.PropertyEditorSupport;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -46,6 +48,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @Controller
@@ -67,6 +70,22 @@ class IpBaseController {
     {
         StringTrimmerEditor stringtrimmer = new StringTrimmerEditor(true);
         binder.registerCustomEditor(String.class, stringtrimmer);
+        binder.registerCustomEditor(byte[].class, new PropertyEditorSupport() {
+            @Override
+            public String getAsText() {
+            	System.out.println("Wywołanie  getAsText()");
+            	 byte[] bytes = (byte[]) getValue();
+            	 
+            	 return  Byte.toString(bytes[0])+".lll"+Byte.toString(bytes[1])+"."+Byte.toString(bytes[2])+"."+Byte.toString(bytes[3]);
+                //return String.valueOf(prefix.toStringPrefix());
+            }
+            @Override
+            public void setAsText(String prefix) {
+                byte[] bytes = IpPrefixv4.stringToBytes(prefix);
+                setValue(bytes);
+            }
+        });
+        
     }
 
     @RequestMapping(path = "/")
@@ -223,8 +242,21 @@ class IpBaseController {
     	repo.save(ipPrefixv4Text.converter());
     	return "ipform_zap";
     }
-
+//=========================================================================================
+    
     @RequestMapping(path = "/prefix/edit/{id}", method = RequestMethod.GET)
+    public String editProduct(Model model, @PathVariable(value = "id") String id) {
+    	
+    	Optional<IpPrefixv4> opt_prefixv4 =  ipPrefixv4Service.getRepo().findById(id);
+    	if((opt_prefixv4.isPresent())) {
+    		model.addAttribute("ipPrefixv4",opt_prefixv4.get() );
+    		return "testprefixedit";
+    	}
+    	return "prefix_does_not_exist";
+    }
+    
+//=========================================================================================
+    /*@RequestMapping(path = "/prefix/edit/{id}", method = RequestMethod.GET)
     public String editProduct(Model model, @PathVariable(value = "id") String id) {
     	
     	Optional<IpPrefixv4> opt_prefixv4 =  ipPrefixv4Service.getRepo().findById(id);
@@ -238,7 +270,8 @@ class IpBaseController {
     		return "testprefixedit";
     	}
     	return "prefix_does_not_exist";
-    }
+    }*/
+//===========================================================================================
 
     /*@RequestMapping(path = "/prefix/delete/{id}", method = RequestMethod.GET)
     public String deleteProduct(@PathVariable(name = "id") String id) {

@@ -138,6 +138,11 @@ public class IpPrefixv4Text extends IpPrefix{
 		
 		return false;
 	}
+	public String testPut() {
+		
+		return "testPut";
+	}
+	
 	
 
 }
