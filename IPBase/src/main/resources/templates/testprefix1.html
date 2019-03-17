@@ -1,0 +1,154 @@
+<html xmlns:th="http://www.thymeleaf.org"
+  th:replace="~{fragments/layout :: layout (~{::body},'owners')}">
+  
+<body>
+
+  <div layout:insert="~{task/alert :: alert}" th:with="type='info', header='Info'" th:remove="tag">
+        <!--/* Implements alert content fragment with simple content */-->
+        <th:block layout:fragment="alert-content">
+            <p><em>This is a simple list of tasks!</em></p>
+        </th:block>
+    </div>
+
+<h1>Form</h1>
+    <form action="#" class="form-horizontal" th:action="@{/prefix/edit/{id}(id=${ipPrefixv4.id})}" th:object="${ipPrefixv4}" method="post">
+    	  <div class="form-group row flex-v-center">
+    	
+    	 <!--  ID -->
+    	
+        <div class="col-xs-1 col-sm-2"> 
+            <label for="id">ID</label>
+        </div>
+    	
+    	<div>
+    	<p class="input-group">
+    	<input type="text" id="id" th:field="*{id}" readonly /> 
+    	<span class="validationError"
+			  th:if="${#fields.hasErrors('id')}"
+              th:errors="*{id}">Creation Time</span> 
+        </p>
+        </div>
+       <br/> 
+    	
+    	<!--  creationDate -->
+    	
+        <div class="col-xs-1 col-sm-2"> 
+            <label for="creationDate">Creation Time</label>
+        </div>
+    	
+    	<div>
+    	<p class="input-group">
+    	<input type="text" id="creationDate" th:field="*{creationDate}" readonly/> 
+    	<span class="validationError"
+			  th:if="${#fields.hasErrors('creationDate')}"
+              th:errors="*{creationDeate}">Creation Time</span> 
+        </p>
+        </div>
+       <br/> 
+       
+        <!--  creationDate -->
+    	
+        <div class="col-xs-1 col-sm-2"> 
+            <label for="lastUpdate">Last Update Time</label>
+        </div>
+    	
+    	<div>
+    	<p class="input-group">
+    	<input type="text" id="lastUpdate" th:field="*{lastUpdate}" readonly/> 
+    	<span class="validationError"
+			  th:if="${#fields.hasErrors('lastUpdate')}"
+              th:errors="*{lastUpdate}">Last Update Time</span> 
+        </p>
+        </div>
+       <br/> 
+       
+    	<!--  <p>Description: -->
+    	
+    	<div class="col-xs-1 col-sm-2"> <!--   -->
+            <label for="description">Description</label>
+        </div>
+    	
+    	<div>
+    	<p class="input-group">
+    	<input type="text" id="description" th:field="*{description}" /> 
+    	<span class="validationError"
+			  th:if="${#fields.hasErrors('description')}"
+              th:errors="*{description}">Description Error</span> <!--  </p> -->
+        </p>
+        </div>
+       <br/> 
+       
+           	<!--  <p>Prefix: -->
+    	
+    	<div class="col-xs-1 col-sm-2"> <!--   -->
+            <label for="bytes">Prefix/Mask</label>
+        </div>
+    	
+    	<div>
+    	<p class="input-group">
+    	<input type="text" id="bytes" th:field="*{bytes}" /> 
+    	<!-- <span class="validationError"
+			  th:if="${#fields.hasErrors('bytes')}"
+              th:errors="*{bytes}">Bytes Error</span>   </p> -->
+    	<span>/</span>
+		<input type="text" id="mask" th:field="*{mask}" />    	
+
+    	
+    	<!-- 
+    	
+    		<span th:text="${detailedError.getFieldName()}"/>
+    		<span th:text="${detailedError.getCode()}"/>
+    		<span th:text="${detailedError.getMessage()}"/> -->
+    	
+ 
+              
+        <th:block th:if="${#fields.hasErrors('bytes')}" th:each="detailedError : ${#fields.detailedErrors('bytes')}">
+            <span th:if="${detailedError.getCode() != '2345'}" class="textError" th:text="${detailedError.getMessage()}"/>
+    		<span th:if="${detailedError.getCode() == '2345'}" class="textError" th:text="${detailedError.getMessage()}"/>
+    		<a th:if="${detailedError.getCode() == '2345'}"  th:href="${'/prefixes'}" class="btn1 btn1-default" >Edit</a>
+		</th:block> 
+        </p>
+        </div>
+       <br/> 
+       
+          	<!--  AS -->
+    	
+    	<div class="col-xs-1 col-sm-2"> <!--   -->
+            <label for="AS">AS</label>
+        </div>
+    	
+    	<div>
+    	<p class="input-group">
+    	<input type="text" id="AS" th:field="*{AS}" /> 
+    	<span class="validationError"
+			  th:if="${#fields.hasErrors('AS')}"
+              th:errors="*{AS}">AS Error</span> <!--  </p> -->
+        </p>
+        </div>
+       <br/> 
+       
+            <!--  VRF -->
+    	
+    	<div class="col-xs-1 col-sm-2"> <!--   -->
+            <label for="VRF">VRF</label>
+        </div>
+    	
+    	<div>
+    	<p class="input-group">
+    	<input type="text" id="VRF" th:field="*{VRF}" /> 
+    	<span class="validationError"
+			  th:if="${#fields.hasErrors('VRF')}"
+              th:errors="*{VRF}">VRF Error</span> <!--  </p> -->
+        </p>
+        </div>
+       <br/> 
+              
+         <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+        
+        </div>
+    </form>
+   
+
+
+</body>
+</html>

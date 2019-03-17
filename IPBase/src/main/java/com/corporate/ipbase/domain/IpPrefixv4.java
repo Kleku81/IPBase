@@ -31,11 +31,17 @@ import lombok.ToString;
 
 @Getter 
 @Setter 
-@NoArgsConstructor(access=AccessLevel.PUBLIC)
+//@NoArgsConstructor(access=AccessLevel.PUBLIC)
 @Entity
 @ToString 
 public class IpPrefixv4 extends IpPrefix{
 
+
+	public IpPrefixv4() {
+		super();
+		this.setCreationDate(LocalDateTime.now());
+		this.setLastUpdate(LocalDateTime.now());
+	}
 
 	public IpPrefixv4(
 					  String id,

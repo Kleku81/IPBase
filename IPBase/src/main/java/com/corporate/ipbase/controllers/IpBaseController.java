@@ -15,68 +15,62 @@
  */
 package com.corporate.ipbase.controllers;
 
+import java.beans.PropertyEditorSupport;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.corporate.ipbase.data.IpPrefixv4Repository;
 import com.corporate.ipbase.data.UserRepository;
-import com.corporate.ipbase.domain.IpPrefix;
 import com.corporate.ipbase.domain.IpPrefixv4;
 import com.corporate.ipbase.domain.IpPrefixv4Text;
 import com.corporate.ipbase.domain.User;
 import com.corporate.ipbase.service.IpPrefixv4Service;
-
-import java.beans.PropertyEditorSupport;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
-
+import com.corporate.ipbase.validators.IpPrefixv4Validator;
 @Controller
 class IpBaseController {
 
     private final IpPrefixv4Repository repo;
     private final UserRepository userRepo;
     private final IpPrefixv4Service ipPrefixv4Service;
+	private final IpPrefixv4Validator ipPrefixv4Validator;
  
-	public IpBaseController(IpPrefixv4Repository repo, UserRepository userRepo, IpPrefixv4Service ipPrefixv4Service) {
+	public IpBaseController(IpPrefixv4Repository repo, UserRepository userRepo, IpPrefixv4Service ipPrefixv4Service, IpPrefixv4Validator ipPrefixv4Validator ) {
 		super();
 		this.repo = repo;
 		this.userRepo = userRepo;
 		this.ipPrefixv4Service = ipPrefixv4Service;
+		this.ipPrefixv4Validator = ipPrefixv4Validator;
 	}
 
     @InitBinder
     public void initBinder ( WebDataBinder binder )
     {
         StringTrimmerEditor stringtrimmer = new StringTrimmerEditor(true);
+        binder.addValidators(ipPrefixv4Validator);
         binder.registerCustomEditor(String.class, stringtrimmer);
         binder.registerCustomEditor(byte[].class, new PropertyEditorSupport() {
             @Override
             public String getAsText() {
             	System.out.println("Wywołanie  getAsText()");
             	 byte[] bytes = (byte[]) getValue();
-            	 
-            	 return  Byte.toString(bytes[0])+".lll"+Byte.toString(bytes[1])+"."+Byte.toString(bytes[2])+"."+Byte.toString(bytes[3]);
+            	 return  Byte.toString(bytes[0])+"."+Byte.toString(bytes[1])+"."+Byte.toString(bytes[2])+"."+Byte.toString(bytes[3]);
                 //return String.valueOf(prefix.toStringPrefix());
             }
             @Override
@@ -131,22 +125,67 @@ class IpBaseController {
     	repo.deleteById(id);
     	return "redirect:/prefixes";
     }
-    
-    
-    @PostMapping("/prefix/edit/{id}")
+ //=====================================================================================
+	@PostMapping("/prefix/edit/{id}")
+ 	public String editPrefixSubmit(@Valid IpPrefixv4 ipPrefixv4, Errors errors, @PathVariable(value = "id") String id) {
+ 	
+ 	System.out.println("Post prefixes start !!!");
+
+ 	
+ 	/*IpPrefixv4Text prefix_text = null;
+ 	if(repo.findById(ipPrefixv4Text.getId()).isPresent())
+ 	{
+ 		prefix_text  = repo.findById(ipPrefixv4Text.getId()).get().converter();
+ 	}
+ 	kkk
+ 	if(ipPrefixv4Text.compare(prefix_text))
+ 	{
+ 		errors.rejectValue("prefix", "3456", null, "Nie wprowadzono żadnych  zmian.");
+ 		errors.rejectValue("description", "3456", null, "Nie wprowadzono żadnych  zmian.");
+ 		errors.rejectValue("AS", "3456", null, "Nie wprowadzono żadnych  zmian.");
+ 		errors.rejectValue("VRF", "3456", null, "Nie wprowadzono żadnych  zmian.");
+ 		
+ 		return "testprefixedit";
+ 	}
+ 	if (errors.hasErrors()) {
+ 		System.out.println("Wystąpiły błedy");
+ 		
+ 		return "testprefixedit";
+ 	}
+ 	System.out.println("print date start");
+ 	System.out.println("CreationDate = "+ipPrefixv4Text.getCreationDate());
+ 	System.out.println("LastUpdate = "+ipPrefixv4Text.getLastUpdate());
+ 	System.out.println("print date stop");
+ 	IpPrefixv4 prefixv4 = ipPrefixv4Text.converter();
+ 	Optional<IpPrefixv4> prefixv4_opt = ipPrefixv4Service.checkExistance(prefixv4);
+ 	if(prefixv4_opt.isPresent())
+ 	{
+
+ 		errors.rejectValue("prefix", "2345", null, "Prefix jest  zawarty w "+prefixv4_opt.get().toStringPrefix()+"\r\n czy dodać jako podzakrezs dla tego prefix");
+ 		return "testprefixedit";
+ 	}
+ 	ipPrefixv4Text.setLastUpdate(LocalDateTime.now());
+ 	System.out.println("Id prefixu text = " + ipPrefixv4Text.getId());
+ 	IpPrefixv4 prefix = ipPrefixv4Text.converter();
+ 	System.out.println("Id prefix do zapisu = "+ prefix.getId());*/
+ 	
+ 	if (errors.hasErrors()) {
+ 		System.out.println("Wystąpiły błedy");
+ 		
+ 		return "testprefix1";
+ 	}
+ 	
+ 	repo.save(ipPrefixv4);
+ 	
+ 	System.out.println("Post prefixes stop !!!");
+ 	return "redirect:/prefixes";
+ }
+// =====================================================================================   
+    /*@PostMapping("/prefix/edit/{id}")
     public String editPrefixSubmit(@Valid IpPrefixv4Text ipPrefixv4Text, Errors errors, @PathVariable(value = "id") String id) {
     	
     	System.out.println("Post prefixes start !!!");
-    	/*ObjectError oerror = new ObjectError("checkExistError","message");
-		List<ObjectError> ol = new ArrayList<>();
-		ol.add(oerror);
-		errors.rejectValue("prefix", null, null, "test message");
     	
-    	for (ObjectError oe : errors.getAllErrors())
-    	{
-    		System.out.println("Error = "+ oe);
-    		
-    	}*/
     	
     	IpPrefixv4Text prefix_text = null;
     	if(repo.findById(ipPrefixv4Text.getId()).isPresent())
@@ -188,7 +227,8 @@ class IpBaseController {
     	
     	System.out.println("Post prefixes stop !!!");
     	return "redirect:/prefixes";
-    }
+    }*/
+// ================================================================================
     
     @GetMapping("/user")
     public String greetingForm(Model model) {
@@ -250,7 +290,7 @@ class IpBaseController {
     	Optional<IpPrefixv4> opt_prefixv4 =  ipPrefixv4Service.getRepo().findById(id);
     	if((opt_prefixv4.isPresent())) {
     		model.addAttribute("ipPrefixv4",opt_prefixv4.get() );
-    		return "testprefixedit";
+    		return "testprefix1";
     	}
     	return "prefix_does_not_exist";
     }

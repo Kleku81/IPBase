@@ -33,7 +33,7 @@ import lombok.RequiredArgsConstructor;
 public class IpPrefix {
 	 
 
-	//@NonNull
+
 	//@Temporal(TemporalType.DATE)
 	//@Temporal(DATE)
 	@DateTimeFormat (pattern="yyyy-MMM-dd' 'HH:mm:ss")
