@@ -70,16 +70,41 @@ class IpBaseController {
             public String getAsText() {
             	System.out.println("Wywołanie  getAsText()");
             	 byte[] bytes = (byte[]) getValue();
+
+            	 if(bytes[bytes.length-1]==0)
             	 return  Byte.toString(bytes[0])+"."+Byte.toString(bytes[1])+"."+Byte.toString(bytes[2])+"."+Byte.toString(bytes[3]);
+            	 else {
+            	 return new String(decrementByteArray(bytes));
+            	 }
                 //return String.valueOf(prefix.toStringPrefix());
             }
             @Override
             public void setAsText(String prefix) {
-                byte[] bytes = IpPrefixv4.stringToBytes(prefix);
+            	byte[] bytes;
+            	  
+            	if(prefix.matches("((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)")) {
+            		 
+            		bytes = IpPrefixv4.stringToBytes(prefix);	
+            	}
+            	else {
+            		
+            		bytes =  prefix.getBytes();
+            	}
+                
                 setValue(bytes);
             }
         });
         
+    }
+    
+    public byte[] decrementByteArray(byte[] bytes)
+    {
+    	byte[] result = new byte[bytes.length-1];
+    	for(int i=0; i<bytes.length-2;i++ )
+    	{	
+    		result[i] = bytes[i];
+    	}
+    	return result;
     }
 
     @RequestMapping(path = "/")

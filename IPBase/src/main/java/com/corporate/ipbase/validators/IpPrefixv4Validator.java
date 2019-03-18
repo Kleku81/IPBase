@@ -22,7 +22,7 @@ public void validate(Object target, Errors errors) {
 	System.out.println("@@@@@ wywołanie validate");
 	IpPrefixv4 prefix = (IpPrefixv4)target;
 	//byte b = 2;
-	if (prefix.getBytes()[0] == 2) {
+	if (prefix.getBytes().length != 4) {
 		System.out.println("wystapił błąd bytes");
 		errors.rejectValue("bytes", "", "Bytes error");
 	}

@@ -85,7 +85,7 @@ public class IpPrefixv4 extends IpPrefix{
 	private String id;
 	  //@NonNull
 	  //@Size(min=4, max=4 )
-	private byte[] bytes = new byte[4];
+	private byte[] bytes;
 	  //@NonNull
 	private int mask; 
 	  //@NonNull
