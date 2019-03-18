@@ -17,6 +17,7 @@ package com.corporate.ipbase.controllers;
 
 import java.beans.PropertyEditorSupport;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -71,8 +72,10 @@ class IpBaseController {
             	System.out.println("Wywołanie  getAsText()");
             	 byte[] bytes = (byte[]) getValue();
 
-            	 if(bytes[bytes.length-1]==0)
-            	 return  Byte.toString(bytes[0])+"."+Byte.toString(bytes[1])+"."+Byte.toString(bytes[2])+"."+Byte.toString(bytes[3]);
+            	 if(bytes[bytes.length-1]==0) {
+            		 String check = Byte.toString(bytes[0])+"."+Byte.toString(bytes[1])+"."+Byte.toString(bytes[2])+"."+Byte.toString(bytes[3]);
+            		 return  Byte.toString(bytes[0])+"."+Byte.toString(bytes[1])+"."+Byte.toString(bytes[2])+"."+Byte.toString(bytes[3]);
+            	 }
             	 else {
             	 return new String(decrementByteArray(bytes));
             	 }
@@ -80,18 +83,27 @@ class IpBaseController {
             }
             @Override
             public void setAsText(String prefix) {
+            	System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%Wywołanie setAsText("+prefix+")");
             	byte[] bytes;
+            	byte[] result;
             	  
             	if(prefix.matches("((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)")) {
-            		 
+            		System.out.println("%%%%%%%%%%%%%%%%%Reg maches");
             		bytes = IpPrefixv4.stringToBytes(prefix);	
+            		result = Arrays.copyOf(bytes, bytes.length+1);
+            		result[result.length-1]= (byte) 255;
+            		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!Result reg maches = "+result);
+            			
             	}
             	else {
-            		
+            		System.out.println("%%%%%%%%%%%%%%%%%Reg not maches");
             		bytes =  prefix.getBytes();
+            		result = Arrays.copyOf(bytes, bytes.length+1);
+            		result[result.length-1]= (byte) 0;
+            		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!Result reg not maches = "+result);
             	}
                 
-                setValue(bytes);
+                setValue(result);
             }
         });
         
