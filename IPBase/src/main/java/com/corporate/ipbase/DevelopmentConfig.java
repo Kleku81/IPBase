@@ -54,6 +54,7 @@ public class DevelopmentConfig {
 				//for (String s : test_addr)
 				
 				IpPrefixv4 prefix1 =  new IpPrefixv4(null,LocalDateTime.now(),LocalDateTime.now(),"5617","VRF-TEST",false,"2.1.1.1/24","4","prefix1");
+				prefix1.prefixToBytesMask();
 				//IpPrefixv4 prefix2 =  new IpPrefixv4(LocalDateTime.now(),bytes2,24,4,"prefix2");
 				//IpPrefixv4 prefix3 =  new IpPrefixv4(LocalDateTime.now(),bytes3,16,4,"prefix3");
 				//IpPrefixv4 prefix4 =  new IpPrefixv4(LocalDateTime.now(),bytes4,24,4,"prefix4");
