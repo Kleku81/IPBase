@@ -86,8 +86,8 @@ public class IpPrefixv4Text extends IpPrefix{
 	    	this.setLastUpdate(LocalDateTime.now()); 
 	    }
 	    
-		
-		return new IpPrefixv4(
+	    return new IpPrefixv4();
+		/*return new IpPrefixv4(
 						      this.getId(),
 							  this.getLastUpdate(),
 				  			  this.getCreationDate(),
@@ -97,7 +97,7 @@ public class IpPrefixv4Text extends IpPrefix{
 				              byte_table, 
 				              Integer.valueOf(prefix_table[4]), 
 				              this.getVersion(),
-	           	              this.getDescription()); 
+	           	              this.getDescription()); */
 		
 	}
 

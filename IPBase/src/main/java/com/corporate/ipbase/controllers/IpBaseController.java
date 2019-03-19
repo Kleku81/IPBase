@@ -25,10 +25,15 @@ import java.util.Set;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.PropertyAccessException;
+//import org.hibernate.PropertyAccessException;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.DefaultBindingErrorProcessor;
 import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -64,17 +69,19 @@ class IpBaseController {
     public void initBinder ( WebDataBinder binder )
     {
         StringTrimmerEditor stringtrimmer = new StringTrimmerEditor(true);
-        binder.addValidators(ipPrefixv4Validator);
+        //binder.addValidators(ipPrefixv4Validator);
         binder.registerCustomEditor(String.class, stringtrimmer);
-        binder.registerCustomEditor(byte[].class, new PropertyEditorSupport() {
+        /*binder.registerCustomEditor(byte[].class, new PropertyEditorSupport() {
             @Override
             public String getAsText() {
             	System.out.println("Wywołanie  getAsText()");
             	 byte[] bytes = (byte[]) getValue();
+            	 
+            	 return  Byte.toString(bytes[0])+"."+Byte.toString(bytes[1])+"."+Byte.toString(bytes[2])+"."+Byte.toString(bytes[3]);
 
             	 if(bytes[bytes.length-1]==0) {
             		 String check = Byte.toString(bytes[0])+"."+Byte.toString(bytes[1])+"."+Byte.toString(bytes[2])+"."+Byte.toString(bytes[3]);
-            		 return  Byte.toString(bytes[0])+"."+Byte.toString(bytes[1])+"."+Byte.toString(bytes[2])+"."+Byte.toString(bytes[3]);
+            		 r
             	 }
             	 else {
             	 return new String(decrementByteArray(bytes));
@@ -82,7 +89,7 @@ class IpBaseController {
                 //return String.valueOf(prefix.toStringPrefix());
             }
             @Override
-            public void setAsText(String prefix) {
+            public void setAsText(String prefix) throws IllegalArgumentException {
             	System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%Wywołanie setAsText("+prefix+")");
             	byte[] bytes;
             	byte[] result;
@@ -90,26 +97,38 @@ class IpBaseController {
             	if(prefix.matches("((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)")) {
             		System.out.println("%%%%%%%%%%%%%%%%%Reg maches");
             		bytes = IpPrefixv4.stringToBytes(prefix);	
-            		result = Arrays.copyOf(bytes, bytes.length+1);
-            		result[result.length-1]= (byte) 255;
-            		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!Result reg maches = "+result);
+            		//result = Arrays.copyOf(bytes, bytes.length+1);
+            		//result[result.length-1]= (byte) 255;
+            		//System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!Result reg maches = "+result);
             			
             	}
             	else {
-            		System.out.println("%%%%%%%%%%%%%%%%%Reg not maches");
-            		bytes =  prefix.getBytes();
-            		result = Arrays.copyOf(bytes, bytes.length+1);
-            		result[result.length-1]= (byte) 0;
-            		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!Result reg not maches = "+result);
+            		//System.out.println("%%%%%%%%%%%%%%%%%Reg not maches");
+            		//bytes =  prefix.getBytes();
+            		//result = Arrays.copyOf(bytes, bytes.length+1);
+            		//result[result.length-1]= (byte) 0;
+            		//System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!Result reg not maches = "+result);
+            		throw new IllegalArgumentException("Something goes wrong!");
             	}
                 
-                setValue(result);
+                setValue(bytes);
             }
-        });
+        });*/
+       
+       /* binder.setBindingErrorProcessor(new DefaultBindingErrorProcessor() {
+            @Override
+            public void processPropertyAccessException(PropertyAccessException ex, BindingResult bindingResult) {
+                String propertyName = ex.getPropertyName();
+                Object value = ex.getValue();
+                bindingResult.addError(new FieldError(bindingResult.getObjectName(), propertyName, value, true,
+                new String[] { "moderation.field.error" }, new Object[] { propertyName, value },
+                "Invalid value for " + propertyName + "(" + value + ")"));
+            }
+    });*/
         
     }
     
-    public byte[] decrementByteArray(byte[] bytes)
+    /*public byte[] decrementByteArray(byte[] bytes)
     {
     	byte[] result = new byte[bytes.length-1];
     	for(int i=0; i<bytes.length-2;i++ )
@@ -117,7 +136,7 @@ class IpBaseController {
     		result[i] = bytes[i];
     	}
     	return result;
-    }
+    }*/
 
     @RequestMapping(path = "/")
     public String index() {
@@ -286,11 +305,11 @@ class IpBaseController {
     }
     @GetMapping("/prefix")
     public String prefixForm(Model model) {
-        model.addAttribute("ipPrefixv4Text", new IpPrefixv4Text());
+        model.addAttribute("ipPrefixv4", new IpPrefixv4());
         return "testprefix";
     }
     @PostMapping("/prefix")
-    public String greetingSubmit(@Valid IpPrefixv4Text ipPrefixv4Text, Errors errors) {
+    public String greetingSubmit(@Valid IpPrefixv4 ipPrefixv4, Errors errors) {
     	
     	/*ObjectError oerror = new ObjectError("checkExistError","message");
 		List<ObjectError> ol = new ArrayList<>();
@@ -307,16 +326,17 @@ class IpBaseController {
     		
     		return "testprefix";
     	}
-    	IpPrefixv4 prefixv4 = ipPrefixv4Text.converter();
-    	Optional<IpPrefixv4> prefixv4_opt = ipPrefixv4Service.checkExistance(prefixv4);
+    	//IpPrefixv4 prefixv4 = ipPrefixv4Text.converter();
+    	Optional<IpPrefixv4> prefixv4_opt = ipPrefixv4Service.checkExistance(ipPrefixv4);
     	if(prefixv4_opt.isPresent())
     	{
 
     		errors.rejectValue("prefix", "2345", null, "Prefix jest  zawarty w "+prefixv4_opt.get().toStringPrefix()+"\r\n czy dodać jako podzakrezs dla tego prefix");
     		return "testprefix";
     	}
-    	System.out.println(ipPrefixv4Text.toString());
-    	repo.save(ipPrefixv4Text.converter());
+    	//System.out.println(ipPrefixv4Text.toString());
+    	ipPrefixv4.prefixToBytesMask();
+    	repo.save(ipPrefixv4);
     	return "ipform_zap";
     }
 //=========================================================================================

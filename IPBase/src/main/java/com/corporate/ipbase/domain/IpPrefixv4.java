@@ -2,9 +2,8 @@ package com.corporate.ipbase.domain;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.regex.Pattern;
+
 import java.util.stream.IntStream;
 
 import javax.persistence.CascadeType;
@@ -14,28 +13,43 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Size;
+import javax.validation.constraints.Pattern;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import inet.ipaddr.IPAddress;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 
-@Getter 
-@Setter 
+
+
 //@NoArgsConstructor(access=AccessLevel.PUBLIC)
 @Entity
 @ToString 
 public class IpPrefixv4 extends IpPrefix{
 
+	@Id
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+	private String id;
+	
+	@NonNull
+	@Pattern(regexp = "((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\/(3[0-2]|[1-2][0-9]|[1-9])",message="Bad pattern")
+	private String prefix;
+	@Size(min=4, max=4 )
+	private byte[] bytes;
+	  //@NonNull
+	private int mask; 
+	  //@NonNull
+	//private int version;
+	  //@NonNull
+	  @OneToMany(
+		        cascade = CascadeType.ALL,
+		        orphanRemoval = true
+		    )
+	private List<IpPrefixv4> subNets = new ArrayList<>();
 
 	public IpPrefixv4() {
 		super();
@@ -49,8 +63,10 @@ public class IpPrefixv4 extends IpPrefix{
 					  LocalDateTime creationDate,
 					  String AS,
 					  String VRF,
-					  boolean nested, byte[] bytes, 
-					  int mask, 
+					  boolean nested, 
+					  //byte[] bytes, 
+					  //int mask, 
+					  String prefix,
 					  String version,
 		           	  @Size(min = 5, message = "Name must be at least 5 characters long") String description) {
 		this.setId(id);
@@ -60,55 +76,39 @@ public class IpPrefixv4 extends IpPrefix{
 		super.setVRF(VRF);
 		super.setNested(nested);
 		super.setVersion(version);
-		this.bytes = bytes;
-		this.mask = mask;
-		this.description = description;
+		this.prefix = prefix;
+		//this.stringToBytesMask(this.prefix);
+		//this.bytes = bytes;
+		//this.mask = mask;
+		super.setDescription(description);
 	}
 
-	public IpPrefixv4(LocalDateTime lastUpdate, byte[] bytes, int mask,  String version,		
+	/*public IpPrefixv4(LocalDateTime lastUpdate, byte[] bytes, int mask,  String version,		
 			@Size(min = 5, message = "Name must be at least 5 characters long") String description) {
 		super.setLastUpdate(lastUpdate);
 		super.setVersion(version);
-		this.bytes = bytes;
-		this.mask = mask;
+		this.bytes = this.stringToBytes(this.prefix);
+		this.mask = (int);
 		this.description = description;
-	}
+	}*/
 	public IpPrefixv4(@NonNull LocalDateTime lastUpdate,
 			@NonNull @Size(min = 5, message = "Name must be at least 5 characters long") String description) {
 		super();
-		this.description = description;
+		super.setDescription(description);
 	}
 
-	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "system-uuid")
-    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
-	private String id;
-	  //@NonNull
-	  //@Size(min=4, max=4 )
-	private byte[] bytes;
-	  //@NonNull
-	private int mask; 
-	  //@NonNull
-	//private int version;
-	  //@NonNull
-	  @Size(min=5, message="Name must be at least 5 characters long")
-	private String description;
-	  @OneToMany(
-		        cascade = CascadeType.ALL,
-		        orphanRemoval = true
-		    )
-	private List<IpPrefixv4> subNets = new ArrayList<>();
+	
 	  
 	  //static private final String IPV4_REGEX = "(([0-1]?[0-9]{1,2}\\.)|(2[0-4][0-9]\\.)|(25[0-5]\\.)){3}(([0-1]?[0-9]{1,2})|(2[0-4][0-9])|(25[0-5]))";
 	  //static private final String IPV4_REGEX = "(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)";
-	static private final String IPV4_REGEX = "((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\/(3[0-2]|[1-2][0-9]|[1-9])";
+//	static private final String IPV4_REGEX = "((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\/(3[0-2]|[1-2][0-9]|[1-9])";
 	  //static private final String IPV4_REGEX = "(?:a{6})*";
-	static private Pattern IPV4_PATTERN = Pattern.compile(IPV4_REGEX);
+//	static private Pattern IPV4_PATTERN = Pattern.compile(IPV4_REGEX);
 	  
-	static private final String IPV4_REGEX1 = "([a-z][0-9]){3,5}";
-	static private Pattern IPV4_PATTERN1 = Pattern.compile(IPV4_REGEX1);
+//	static private final String IPV4_REGEX1 = "([a-z][0-9]){3,5}";
+//	static private Pattern IPV4_PATTERN1 = Pattern.compile(IPV4_REGEX1);
 	  
-	public static boolean isValidIPV4(final String s)
+/*	public static boolean isValidIPV4(final String s)
 	   {          
 	      return IPV4_PATTERN.matcher(s).matches();
 	   }
@@ -116,7 +116,7 @@ public class IpPrefixv4 extends IpPrefix{
 	public static boolean testValid(final String s)
 	   {          
 	      return IPV4_PATTERN1.matcher(s).matches();
-	   }
+	   }*/
 	   
 	public boolean isContained(IpPrefixv4 to_compare_prefix)
 	   {
@@ -183,6 +183,62 @@ public class IpPrefixv4 extends IpPrefix{
 							 Byte.valueOf(prefix_table[3])};
 		
 		return byte_table;
+	}
+	public void prefixToBytesMask()
+	{
+		
+	    String[] prefix_table = this.prefix.split("\\.|\\/");
+		if (prefix_table.length==5) {
+		byte[] byte_table = {Byte.valueOf(prefix_table[0]),
+							 Byte.valueOf(prefix_table[1]),
+							 Byte.valueOf(prefix_table[2]),
+							 Byte.valueOf(prefix_table[3])};
+		
+		this.bytes =  byte_table;
+		this.mask = (int) Byte.valueOf(prefix_table[4]);
+		}
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getPrefix() {
+		return prefix;
+	}
+
+	public void setPrefix(String prefix) {
+		
+		this.prefix = prefix;
+		//this.stringToBytesMask(this.prefix);
+	}
+
+	public byte[] getBytes() {
+		return bytes;
+	}
+
+	public void setBytes(byte[] bytes) {
+		this.bytes = bytes;
+	}
+
+	public int getMask() {
+		return mask;
+	}
+
+	public void setMask(int mask) {
+		this.mask = mask;
+	}
+
+	public List<IpPrefixv4> getSubNets() {
+		return subNets;
+	}
+
+	public void setSubNets(List<IpPrefixv4> subNets) {
+		this.subNets = subNets;
 	}
 		
 

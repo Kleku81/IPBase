@@ -66,12 +66,14 @@ public class IpPrefix {
 		return AS;
 	}
 	public void setAS(String aS) {
+		System.out.println("^^^^^^^^^^^^^wywołanie setAS("+aS+")");
 		AS = aS;
 	}
 	public String getVRF() {
 		return VRF;
 	}
 	public void setVRF(String vRF) {
+		System.out.println("^^^^^^^^^^^^^^wywołanie setVRF("+vRF+")");
 		VRF = vRF;
 	}
 	public String getVersion() {
