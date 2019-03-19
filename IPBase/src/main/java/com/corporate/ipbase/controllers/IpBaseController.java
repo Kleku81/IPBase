@@ -184,7 +184,7 @@ class IpBaseController {
  //=====================================================================================
 	@PostMapping("/prefix/edit/{id}")
  	public String editPrefixSubmit(@Valid IpPrefixv4 ipPrefixv4, Errors errors, @PathVariable(value = "id") String id) {
- 	
+	ipPrefixv4.prefixToBytesMask();
  	System.out.println("Post prefixes start !!!");
 
  	
@@ -212,22 +212,22 @@ class IpBaseController {
  	System.out.println("CreationDate = "+ipPrefixv4Text.getCreationDate());
  	System.out.println("LastUpdate = "+ipPrefixv4Text.getLastUpdate());
  	System.out.println("print date stop");
- 	IpPrefixv4 prefixv4 = ipPrefixv4Text.converter();
- 	Optional<IpPrefixv4> prefixv4_opt = ipPrefixv4Service.checkExistance(prefixv4);
+ 	IpPrefixv4 prefixv4 = ipPrefixv4Text.converter();*/
+ 	Optional<IpPrefixv4> prefixv4_opt = ipPrefixv4Service.checkExistance(ipPrefixv4);
  	if(prefixv4_opt.isPresent())
  	{
 
  		errors.rejectValue("prefix", "2345", null, "Prefix jest  zawarty w "+prefixv4_opt.get().toStringPrefix()+"\r\n czy dodać jako podzakrezs dla tego prefix");
  		return "testprefixedit";
  	}
- 	ipPrefixv4Text.setLastUpdate(LocalDateTime.now());
+ 	/*ipPrefixv4Text.setLastUpdate(LocalDateTime.now());
  	System.out.println("Id prefixu text = " + ipPrefixv4Text.getId());
  	IpPrefixv4 prefix = ipPrefixv4Text.converter();
  	System.out.println("Id prefix do zapisu = "+ prefix.getId());*/
  	
  	if (errors.hasErrors()) {
  		System.out.println("Wystąpiły błedy");
- 		
+ 		System.out.println("%%%%%%%%PostEditHasErrosrs.IpPrefixv4 = "+ ipPrefixv4);
  		return "testprefix1";
  	}
  	
@@ -310,6 +310,7 @@ class IpBaseController {
     }
     @PostMapping("/prefix")
     public String greetingSubmit(@Valid IpPrefixv4 ipPrefixv4, Errors errors) {
+    	ipPrefixv4.prefixToBytesMask();
     	
     	/*ObjectError oerror = new ObjectError("checkExistError","message");
 		List<ObjectError> ol = new ArrayList<>();
