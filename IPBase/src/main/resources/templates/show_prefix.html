@@ -22,7 +22,7 @@
     	
     	<div>
     	<p class="input-group">
-    	<input type="text" id="id" th:field="*{id}" readonly /> 
+    	<input class="new2"  "text" id="id" th:field="*{id}" readonly /> 
     	<span class="validationError"
 			  th:if="${#fields.hasErrors('id')}"
               th:errors="*{id}">Creation Time</span> 
@@ -38,7 +38,7 @@
     	
     	<div>
     	<p class="input-group">
-    	<input type="text" id="creationDate" th:field="*{creationDate}" readonly/> 
+    	<input class="new2" type="text" id="creationDate" th:field="*{creationDate}" readonly/> 
     	<span class="validationError"
 			  th:if="${#fields.hasErrors('creationDate')}"
               th:errors="*{creationDeate}">Creation Time</span> 
@@ -54,7 +54,7 @@
     	
     	<div>
     	<p class="input-group">
-    	<input type="text" id="lastUpdate" th:field="*{lastUpdate}" readonly/> 
+    	<input class="new2" type="text" id="lastUpdate" th:field="*{lastUpdate}" readonly/> 
     	<span class="validationError"
 			  th:if="${#fields.hasErrors('lastUpdate')}"
               th:errors="*{lastUpdate}">Last Update Time</span> 
@@ -70,7 +70,7 @@
     	
     	<div>
     	<p class="input-group">
-    	<input type="text" id="description" th:field="*{description}" /> 
+    	<input class="new2" type="text" id="description" th:field="*{description}" readonly /> 
     	<span class="validationError"
 			  th:if="${#fields.hasErrors('description')}"
               th:errors="*{description}">Description Error</span> <!--  </p> -->
@@ -86,7 +86,7 @@
     	
     	<div>
     	<p class="input-group">
-    	<input type="text" id="prefix" th:field="*{prefix}" /> 
+    	<input class="new2" type="text" id="prefix" th:field="*{prefix}" readonly /> 
     	<!-- <span class="validationError"
 			  th:if="${#fields.hasErrors('bytes')}"
               th:errors="*{bytes}">Bytes Error</span>   </p> -->
@@ -119,7 +119,7 @@
     	
     	<div>
     	<p class="input-group">
-    	<input type="text" id="AS" th:field="*{AS}" /> 
+    	<input class="new2" type="text" id="AS" th:field="*{AS}" readonly/> 
     	<span class="validationError"
 			  th:if="${#fields.hasErrors('AS')}"
               th:errors="*{AS}">AS Error</span> <!--  </p> -->
@@ -135,7 +135,7 @@
     	
     	<div>
     	<p class="input-group">
-    	<input type="text" id="VRF" th:field="*{VRF}" /> 
+    	<input class="new2"  type="text" id="VRF" th:field="*{VRF}" readonly /> 
     	<span class="validationError"
 			  th:if="${#fields.hasErrors('VRF')}"
               th:errors="*{VRF}">VRF Error</span> <!--  </p> -->
@@ -143,7 +143,9 @@
         </div>
        <br/> 
               
-         <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+         <p>
+         <a   th:href="${'/prefixes'}" class="btn1 btn1-default" >Back</a>
+         </p>
         
         </div>
     </form>

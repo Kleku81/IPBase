@@ -36,13 +36,14 @@ public class IpPrefixv4 extends IpPrefix{
 	private String id;
 	
 	@NonNull
-	@Pattern(regexp = "((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\/(3[0-2]|[1-2][0-9]|[1-9])",message="Bad pattern")
+	@Pattern(regexp = "^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\/(3[0-2]|[1-2][0-9]|[1-9])",message="Bad pattern")
+	//@Pattern(regexp = "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\/(3[0-2]|[1-2][0-9]|[1-9])$",message="Bad pattern")
 	private String prefix;
 	@Size(min=4, max=4 )
 	private byte[] bytes;
 	  //@NonNull
 	private int mask; 
-	  //@NonNull
+	  //@NonNull 
 	//private int version;
 	  //@NonNull
 	  @OneToMany(

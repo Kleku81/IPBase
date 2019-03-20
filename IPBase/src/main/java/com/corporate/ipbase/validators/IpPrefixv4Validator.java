@@ -21,12 +21,10 @@ public boolean supports(Class<?> clazz) {
 public void validate(Object target, Errors errors) {
 	System.out.println("@@@@@ wywołanie validate");
 	IpPrefixv4 prefix = (IpPrefixv4)target;
-	//byte b = 2;
-	System.out.println("Prefix = "+prefix);
-	if (prefix.getBytes()[prefix.getBytes().length-1] != -1) {
-		System.out.println("wystapił błąd bytes");
-		errors.rejectValue("bytes", "", "Bytes error");
-	}
+	String regex = "^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\/(3[0-2]|[1-2][0-9]|[1-9])";
+	if(!prefix.getPrefix().matches(regex))
+	errors.rejectValue("Prefix", "", "Bad prefix");
+	
 }
 	
 }

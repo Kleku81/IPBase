@@ -116,19 +116,20 @@ prefix:hover {
 
 
 .btn1 {
-
+ width: 100%;
     display: inline-block;
     padding: 6px 12px;
     margin-bottom: 3;
+    width: 100px;
     margin-top: 3;
     font-size: 14px;
-    font-weight: 400;
+    font-weight: 600;
     line-height: 1.42857143;
     text-align: center;
     white-space: nowrap;
     vertical-align: middle;
     /*-ms-touch-action: manipulation;*/
-    touch-action: manipulation;
+    /*touch-action: manipulation;*/
     cursor: pointer;
     /*-webkit-user-select: none;*/
     -moz-user-select: none;
@@ -141,28 +142,72 @@ prefix:hover {
         border-bottom-color: transparent;
         border-left-color: transparent;*/
     border-radius: 4px;
-
 }
+
 .btn1-default {
 
     color: #333;
-    background-color: #fff;
-    border-color: #ccc;
+    background-color: #d9d9d9;
+    border-color: #d9d9d9;
+
+}
+
+.btn1-default:hover {
+
+    color: #333;
+    background-color:#b3b3b3;
+    border-color:  #b3b3b3;
+
+}
+
+.btn1-info {
+
+    color: #333;
+    background-color:#b3e6ff;
+    border-color: #b3e6ff;
+}
+
+.btn1-info:hover {
+
+    color: #333;
+    background-color: #33bbff;
+    border-color: #33bbff;
 
 }
 
 .btn1-danger {
 
-    color: #fff;
-    background-color: #d9534f;
-    border-color: #d43f3a;
+    color: #333;
+    background-color: #ffb3b3;
+    border-color:  #ffb3b3;
     }
+    
+.btn1-danger:hover {
+
+    color: #333;
+    background-color: #cc0000;
+    border-color: #cc0000;
+    }
+    
+    
    
 hr.new1 {
 border: 0,5px solid black;
 margin-top: 0px;
 margin-bottom: 0px;
 }
+input.new1 {
+width: 320px;
+}
+
+input.new2 {
+width: 350px;
+pointer-events:none;
+readonly:true;
+
+}
+
+ 
 
 span.sidebar {  
 margin-left:10px; 
@@ -205,7 +250,7 @@ font-family:Helvetica Neue,Helvetica,Arial,sans-serif"
                       <span>Home</span>
                   </li>
   
-                  <li th:replace="::menuItem ('/owners/find','owners','find owners','search','Find owners')">
+                  <li th:replace="::menuItem ('/owners/find','home','find owners','search','Find owners')">
                       <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                       <span>Find owners</span>
                   </li>
@@ -234,7 +279,7 @@ font-family:Helvetica Neue,Helvetica,Arial,sans-serif"
         <div class="container">
           <div class="row">
             <div class="col-12 text-center">
-              <img src="../static/resources/images/spring-pivotal-logo.png" th:src="@{/resources/images/spring-pivotal-logo.png}"
+              <img src="../static/resources/images/logo-orange-65Wx65H1.png"  class="rounded float-right"  th:src="@{/resources/images/logo-orange-65Wx65H1.png}"
                 alt="Sponsored by Pivotal"/></div>
           </div>
         </div>
