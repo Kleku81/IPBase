@@ -10,9 +10,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="shortcut icon" type="image/x-icon" th:href="@{/resources/images/favicon.png}">
+    <!-- <link rel="shortcut icon" type="image/x-icon" th:href="@{/resources/images/favicon.png}">  -->
 
-    <title>PetClinic :: a Spring Framework demonstration</title>
+    <title>IP Database</title>
 
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -266,6 +266,13 @@ font-family:Helvetica Neue,Helvetica,Arial,sans-serif"
                         <span th:text="${text}">Template</span>
                       </a>
                   </li>
+                  
+                  <li th:fragment="menuItem1 (path,active,title,glyph,text)" class="active" th:class="${active==menu ? 'active' : ''}">
+                      <a method="POST" th:action="@{__${path}__}" th:title="${title}">
+                        <span th:class="'glyphicon  glyphicon-'+${glyph}" class="glyphicon glyphicon-home" aria-hidden="true"></span>
+                        <span th:text="${text}">Template</span>
+                      </a>
+                  </li>
   
                   <li th:replace="::menuItem ('/','home','home page','home','Home')">
                       <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
@@ -277,15 +284,33 @@ font-family:Helvetica Neue,Helvetica,Arial,sans-serif"
                       <span>Find owners</span>
                   </li>
   
-                  <li th:replace="::menuItem ('/setting','home','Settings','th-list','Settings')">
+                  
+                  <li th:replace="::menuItem ('/import','home','Import','import','Import')">
                       <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
                       <span>Veterinarians</span>
                   </li>
+                  
+                  <li th:replace="::menuItem ('/import','home','Export','export','Export')">
+                      <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+                      <span>Veterinarians</span>
+                  </li>
+                  
+                    <li th:replace="::menuItem ('/setting','home','Settings','th-list','Settings')">
+                      <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+                      <span>Veterinarians</span>
+                  </li>
+                  
+                  <!-- <li>
+                  		<a method="POST" th:action="@{/logout}" th:title="${title}">
+                        <span th:class="'glyphicon  glyphicon-'+${glyph}" class="glyphicon glyphicon-home" aria-hidden="true"></span>
+                        <span th:text="${text}">Template</span>
+                      </a>
+                  </li> -->
   
                   <li th:replace="::menuItem ('/logout','error','Logout','log-out','Logout')">
                       <span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
                       <span>Error</span>
-                  </li>
+                  </li> 
   
               </ul>
           </div>
@@ -301,8 +326,8 @@ font-family:Helvetica Neue,Helvetica,Arial,sans-serif"
         <div class="container">
           <div class="row">
             <div class="col-12 text-center">
-              <img src="../static/resources/images/logo-orange-65Wx65H1.png"  class="rounded float-right"  th:src="@{/resources/images/logo-orange-65Wx65H1.png}"
-                alt="Sponsored by Pivotal"/></div>
+              <!--  <img src="../static/resources/images/logo-orange-65Wx65H1.png"  class="rounded float-right"  th:src="@{/resources/images/logo-orange-65Wx65H1.png}" 
+                alt="Sponsored by Pivotal"/></div> -->
           </div>
         </div>
       </div>
