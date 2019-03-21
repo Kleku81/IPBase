@@ -78,7 +78,11 @@ class IpBaseController {
 
     @RequestMapping(path = "/")
     public String index() {
-        return "index";
+        return "home";
+    }
+    @RequestMapping(path = "/tbi")
+    public String underConstruction() {
+        return "tbi";
     }
     
     @RequestMapping(path = "/test", method = RequestMethod.GET)

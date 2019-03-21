@@ -1,0 +1,68 @@
+<html xmlns:th="http://www.thymeleaf.org"
+   th:insert="~{fragments/layout :: layout (~{::body},'owners')}">  
+<head>
+
+</head>
+
+
+<body>
+
+ <!--  <div layout:insert="~{task/alert :: alert}" th:with="type='info', header='Info'" th:remove="tag">
+        /* Implements alert content fragment with simple content */
+        <th:block layout:fragment="alert-content">
+            <p><em>This is a simple list of tasks!</em></p>
+        </th:block>
+    </div>  -->
+    
+   <!--  <div th:insert="fragments/sidebar1.html :: submenu"></div>  -->
+     <h1>Database IP addresses</h1>
+     <hr>
+     
+     <h1>Select the prefixes to display<h1>
+     <hr>
+     <ul>
+     <li class="test">
+     <h2>Prefixes IPv4<h2>
+    
+     		<ul>
+     			<li>
+     				<a  th:href="${'/prefixes'}" class="btn1 btn2-default" > Public IPv4 prefixes</a>
+     			</li>	
+     			<li>
+     				<a   th:href="${'/tbi'}" class="btn1 btn2-default" > Private IPv4 prefixes</a>
+     			</li>
+     		
+     		</ul>
+      </li>
+     <li>
+	<h2>Prefixes IPv6<h2>
+	     		<ul>
+     			<li>
+     				<a  th:href="${'/tbi'}" class="btn1 btn2-default" > Public IPv6 prefixes</a>
+     			</li>	
+     			
+     		
+     		</ul>
+	
+	
+  
+     </li>
+   </ul>
+
+
+
+<script>
+		var toggler = document.getElementsByClassName("test");
+		var i;
+
+		for (i = 0; i < toggler.length; i++) {
+			toggler[i].addEventListener("click", function() {
+				this.parentElement.querySelector(".nested").classList
+						.toggle("active");
+				this.classList.toggle("caret1-down");
+			});
+		}
+</script>
+
+</body>
+</html>
