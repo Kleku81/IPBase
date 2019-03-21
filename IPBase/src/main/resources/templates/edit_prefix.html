@@ -6,12 +6,16 @@
   <div layout:insert="~{task/alert :: alert}" th:with="type='info', header='Info'" th:remove="tag">
         <!--/* Implements alert content fragment with simple content */-->
         <th:block layout:fragment="alert-content">
-            <p><em>This is a simple list of tasks!</em></p>
+           <!--  <p><em>This is a simple list of tasks!</em></p>  -->
         </th:block>
     </div>
+    
 
-<h1>Form</h1>
-    <form action="#" class="form-horizontal" th:action="@{/prefix/edit/{id}(id=${ipPrefixv4.id})}" th:object="${ipPrefixv4}" method="post">
+	
+	<div>
+	<h1 th:text="'Edit prefix '+ ${ipPrefixv4_org.prefix}">Form</h1>
+	<hr></div>
+    <form action="#"  class="form-horizontal new1" th:action="@{/prefix/edit/{id}(id=${ipPrefixv4.id})}" th:object="${ipPrefixv4}" method="post">
     	  <div class="form-group row flex-v-center">
     	
     	 <!--  ID -->
@@ -142,15 +146,18 @@
         </p>
         </div>
        <br/> 
+       <hr></div>
               
          <p>
-         <input class="btn1 btn1-default" type="submit" value="Submit" /> 
+         <input class="btn1 btn1-default" type="submit" value="Write" /> 
          <a><input  class="btn1 btn1-default" type="reset" value="Reset" /> </a>
+         <a   th:href="${'/prefix/edit/addsub/'+ipPrefixv4.id}"class="btn1 btn1-default" >Add Sub</a>
          <a   th:href="${'/prefixes'}" class="btn1 btn1-default" >Back</a>
          </p>
         
         </div>
     </form>
+    </div>
    
 
 

@@ -113,14 +113,15 @@ class IpBaseController {
     	return "redirect:/prefixes";
     }
 	@PostMapping("/prefix/edit/{id}")
- 	public String editPrefixSubmit(@Valid IpPrefixv4 ipPrefixv4, Errors errors, @PathVariable(value = "id") String id) {
+ 	public String editPrefixSubmit(Model model,@Valid IpPrefixv4 ipPrefixv4, Errors errors, @PathVariable(value = "id") String id) {
 	
 
- 	
+	Optional<IpPrefixv4> prefixv4_opt1 = ipPrefixv4Service.getRepo().findById(id);
  	if (errors.hasErrors()) {
  		System.out.println("Wystąpiły błedy");
  		System.out.println("%%%%%%%%PostEditHasErrosrs.IpPrefixv4 = "+ ipPrefixv4);
- 		return "testprefix1";
+ 		model.addAttribute("ipPrefixv4_org", prefixv4_opt1.get());
+ 		return "edit_prefix";
  	}
  	ipPrefixv4.prefixToBytesMask();
  	System.out.println("Post prefixes start !!!");
@@ -128,7 +129,7 @@ class IpBaseController {
  	if(prefixv4_opt.isPresent())
  	{
  		errors.rejectValue("prefix", "2345", null, "Prefix jest  zawarty w "+prefixv4_opt.get().toStringPrefix()+"\r\n czy dodać jako podzakrezs dla tego prefix");
- 		return "testprefixedit";
+ 		return "edit_prefix";
  	}
  	
  	repo.save(ipPrefixv4);
@@ -173,7 +174,6 @@ class IpBaseController {
     	Optional<IpPrefixv4> prefixv4_opt = ipPrefixv4Service.checkExistance(ipPrefixv4);
     	if(prefixv4_opt.isPresent())
     	{
-
     		errors.rejectValue("prefix", "2345", null, "Prefix jest  zawarty w "+prefixv4_opt.get().toStringPrefix()+"\r\n czy dodać jako podzakrezs dla tego prefix");
     		return "testprefix";
     	}
@@ -181,6 +181,54 @@ class IpBaseController {
     	repo.save(ipPrefixv4);
     	return "ipform_zap";
     }
+//////////////////////////////////////////////////////////////////////////////////////
+    @RequestMapping(path = "/prefix/edit/addsub/{id}", method = RequestMethod.GET)
+    public String addSubPrefixGet(Model model, @PathVariable(value = "id") String id) {
+    	
+    	Optional<IpPrefixv4> opt_prefixv4 =  ipPrefixv4Service.getRepo().findById(id);
+    	if((opt_prefixv4.isPresent())) {
+    		model.addAttribute("ipPrefixv4", new IpPrefixv4());
+    		model.addAttribute("ipPrefixv4_mod", opt_prefixv4.get());
+    		return "add_sub_prefix";
+    	}
+    	return "prefix_does_not_exist";
+    }
+    
+    @RequestMapping(path = "/prefix/edit/addsub/{id}", method = RequestMethod.POST)
+    public String addSubPrefixPost(Model model ,@Valid IpPrefixv4 ipPrefixv4, Errors errors ,@PathVariable(value = "id") String id) {
+    	
+    	Optional<IpPrefixv4> prefixv4_opt = ipPrefixv4Service.getRepo().findById(id);
+    	
+    	if (errors.hasErrors()) {
+    		
+    		model.addAttribute("ipPrefixv4_mod", prefixv4_opt.get());
+    		return "add_sub_prefix";
+     	}
+     	ipPrefixv4.prefixToBytesMask();
+    	
+    	if(prefixv4_opt.isPresent()) {
+    		
+    		IpPrefixv4 super_prefix = prefixv4_opt.get();
+    		if(!ipPrefixv4.isContained(super_prefix))
+    		{
+    			errors.rejectValue("prefix", "2345", null, "Incorrect prefix");
+    			model.addAttribute("ipPrefixv4_mod", prefixv4_opt.get());
+    			return "add_sub_prefix";
+    		}
+    		else {
+    			ipPrefixv4.prefixToBytesMask();
+    			ipPrefixv4.setId(null);
+    			ipPrefixv4.setNested(true);
+    			super_prefix.getSubNets().add(ipPrefixv4);
+    			
+    			repo.save(super_prefix);
+    			return "redirect:/prefixes";
+    			
+    		}
+    	}
+    	return "prefix_does_not_exist";
+    }
+//////////////////////////////////////////////////////////////////////////////////////
     
     @RequestMapping(path = "/prefix/edit/{id}", method = RequestMethod.GET)
     public String editProduct(Model model, @PathVariable(value = "id") String id) {
@@ -188,6 +236,7 @@ class IpBaseController {
     	Optional<IpPrefixv4> opt_prefixv4 =  ipPrefixv4Service.getRepo().findById(id);
     	if((opt_prefixv4.isPresent())) {
     		model.addAttribute("ipPrefixv4",opt_prefixv4.get() );
+    		model.addAttribute("ipPrefixv4_org",opt_prefixv4.get() );
     		return "edit_prefix";
     	}
     	return "prefix_does_not_exist";

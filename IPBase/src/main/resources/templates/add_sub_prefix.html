@@ -6,14 +6,16 @@
   <div layout:insert="~{task/alert :: alert}" th:with="type='info', header='Info'" th:remove="tag">
         <!--/* Implements alert content fragment with simple content */-->
         <th:block layout:fragment="alert-content">
-            <p><em>This is a simple list of tasks!</em></p>
+            <!-- <p><em>This is a simple list of tasks!</em></p>  -->
         </th:block>
     </div>
-    
-
-
-<h1 th:text=${ipPrefixv4.prefix}>Form</h1>
-    <form action="#" class="form-horizontal" th:action="@{/prefix}" th:object="${ipPrefixv4}" method="post">
+     
+	<div>
+	<h1 th:text="'Add subnetwork for prefix '+ ${ipPrefixv4_mod.prefix}">Form</h1>
+	<hr></div>
+	
+    <!-- <form action="#" class="form-horizontal" th:action="@{'/prefix/edit/addsub/'+ipPrefixv4_mod.id}" th:object="${ipPrefixv4_new}" method="post"> -->
+    <form action="#" class="form-horizontal" th:action="@{/prefix/edit/addsub/{id}(id=${ipPrefixv4_mod.id})}" th:object="${ipPrefixv4}" method="post">
     	  <div class="form-group row flex-v-center">
     	
     	
@@ -56,7 +58,7 @@
         <th:block th:if="${#fields.hasErrors('prefix')}" th:each="detailedError : ${#fields.detailedErrors('prefix')}">
             <span th:if="${detailedError.getCode() != '2345'}" class="textError" th:text="${detailedError.getMessage()}"/>
     		<span th:if="${detailedError.getCode() == '2345'}" class="textError" th:text="${detailedError.getMessage()}"/>
-    		<a th:if="${detailedError.getCode() == '2345'}"  th:href="${'/prefixes'}" class="btn1 btn1-default" >Edit</a>
+    		<!-- <a th:if="${detailedError.getCode() == '2345'}"  th:href="${'/prefixes'}" class="btn1 btn1-default" >Edit</a>  -->
 		</th:block> 
         </p>
         </div>
@@ -92,9 +94,13 @@
               th:errors="*{VRF}">VRF Error</span> <!--  </p> -->
         </p>
         </div>
-       <br/> 
-              
-         <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+       <br> 
+       <hr>
+         
+         <p><input class="btn1 btn1-default" type="submit" value="Write" /> 
+         <input class="btn1 btn1-default" type="reset" value="Reset" />
+         <a   th:href="${'/prefix/edit/'+ipPrefixv4_mod.id}" class="btn1 btn1-default" >Back</a>
+         </p>
         
         </div>
     </form>
