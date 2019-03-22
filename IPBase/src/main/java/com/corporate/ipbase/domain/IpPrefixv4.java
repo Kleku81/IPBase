@@ -28,7 +28,7 @@ import lombok.ToString;
 //@NoArgsConstructor(access=AccessLevel.PUBLIC)
 @Entity
 @ToString 
-public class IpPrefixv4 extends IpPrefix{
+public class IpPrefixv4 extends IpPrefix implements Comparable<IpPrefixv4>{
 
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "system-uuid")
@@ -241,6 +241,18 @@ public class IpPrefixv4 extends IpPrefix{
 
 	public void setSubNets(List<IpPrefixv4> subNets) {
 		this.subNets = subNets;
+	}
+
+	@Override
+	public int compareTo(IpPrefixv4 to_compare_prefix) {
+		// TODO Auto-generated method stub
+		for (int i = 0; i < 4; i++) {
+			if(this.getBytes()[i] > to_compare_prefix.getBytes()[i])
+				return 1;
+			else
+				return -1;
+		}
+		return 0;
 	}
 		
 

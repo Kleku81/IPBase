@@ -1,12 +1,11 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" 
-      xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <title>Register</title>
-  </head>
+<html xmlns:th="http://www.thymeleaf.org"
+   th:insert="~{fragments/layout1 :: layout1 (~{::body},'owners')}">  
+<head>
+
+</head>
   
   <body>
-    <h1>Register</h1>
+    <h1>Register user</h1>
   
     
     <form method="POST" th:action="@{/register}" id="registerForm">

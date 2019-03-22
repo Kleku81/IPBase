@@ -44,7 +44,7 @@ private UserDetailsService userDetailsService;
 protected void configure(HttpSecurity http) throws Exception {
   http
     .authorizeRequests()
-      .antMatchers("/login","/register").access("permitAll")
+      .antMatchers("/login","/register","/webjars/**","/resources/**").access("permitAll")
       .antMatchers("/","/**" )
       .access("hasRole('ROLE_USER')")
       //end::authorizeRequests[]

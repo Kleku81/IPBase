@@ -50,6 +50,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.corporate.ipbase.data.IpPrefixv4Repository;
 import com.corporate.ipbase.data.UserRepository;
 import com.corporate.ipbase.domain.IpPrefixv4;
+import com.corporate.ipbase.domain.IpPrefixv4Comparator;
 import com.corporate.ipbase.domain.IpPrefixv4Text;
 import com.corporate.ipbase.domain.User;
 import com.corporate.ipbase.service.IpPrefixv4Service;
@@ -115,6 +116,7 @@ class IpBaseController {
     	List<IpPrefixv4> mainList = new ArrayList<>();
     	IpPrefixv4 prefix = new IpPrefixv4();
     	mainList.addAll(unique);
+    	mainList.sort(new IpPrefixv4Comparator());
     	model.addAttribute("prefix_list", mainList);
     	for (IpPrefixv4 prefix_temp : ipPrefixv4Service.getRepo().findByMask(24)){
     	}
