@@ -127,6 +127,7 @@ class IpBaseController {
     @GetMapping("/prefix/delete/{id}")
     public String deletePrefixSubmit( @PathVariable(value = "id") String id) 
     {
+    	
     	repo.deleteById(id);
     	return "redirect:/prefixes";
     }
@@ -237,7 +238,9 @@ class IpBaseController {
     			ipPrefixv4.prefixToBytesMask();
     			ipPrefixv4.setId(null);
     			ipPrefixv4.setNested(true);
-    			super_prefix.getSubNets().add(ipPrefixv4);
+    			super_prefix.addSubnet(ipPrefixv4);
+    			//super_prefix.getSubNets().add(ipPrefixv4);
+    			//ipPrefixv4.setParentPrefix(super_prefix);
     			
     			repo.save(super_prefix);
     			return "redirect:/prefixes";

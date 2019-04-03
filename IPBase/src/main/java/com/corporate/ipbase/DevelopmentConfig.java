@@ -55,12 +55,17 @@ public class DevelopmentConfig {
 				
 				IpPrefixv4 prefix1 =  new IpPrefixv4(null,LocalDateTime.now(),LocalDateTime.now(),"5617","VRF-TEST",false,"2.2.0.0/16","4","prefix1");
 				prefix1.prefixToBytesMask();
+				
 				IpPrefixv4 prefix11 =  new IpPrefixv4(null,LocalDateTime.now(),LocalDateTime.now(),"5617","VRF-TEST",true,"2.2.2.0/24","4","prefix11");
 				prefix11.prefixToBytesMask();
+				prefix11.setParentPrefix(prefix1);
 				prefix1.getSubNets().add(prefix11);
-				IpPrefixv4 prefix111 =  new IpPrefixv4(null,LocalDateTime.now(),LocalDateTime.now(),"5617","VRF-TEST",true,"2.2.2.0/23","4","prefix11");
+				
+				IpPrefixv4 prefix111 =  new IpPrefixv4(null,LocalDateTime.now(),LocalDateTime.now(),"5617","VRF-TEST",true,"2.2.2.0/23","4","prefix111");
 				prefix111.prefixToBytesMask();
+				prefix111.setParentPrefix(prefix11);
 				prefix11.getSubNets().add(prefix111);
+				
 				IpPrefixv4 prefix2 =  new IpPrefixv4(null,LocalDateTime.now(),LocalDateTime.now(),"5617","VRF-TEST",false,"3.3.0.0/16","4","prefix2");
 				prefix2.prefixToBytesMask();
 				IpPrefixv4 prefix3 =  new IpPrefixv4(null,LocalDateTime.now(),LocalDateTime.now(),"5617","VRF-TEST",false,"4.4.0.0/16","4","prefix3");

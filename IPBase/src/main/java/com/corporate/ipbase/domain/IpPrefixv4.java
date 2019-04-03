@@ -11,6 +11,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Size;
 import javax.validation.constraints.Pattern;
@@ -46,12 +49,31 @@ public class IpPrefixv4 extends IpPrefix implements Comparable<IpPrefixv4>{
 	  //@NonNull 
 	//private int version;
 	  //@NonNull
-	  @OneToMany(
+	//=====
+   /*OneToMany(
 		        cascade = CascadeType.ALL,
 		        orphanRemoval = true
 		    )
-	private List<IpPrefixv4> subNets = new ArrayList<>();
+	private List<IpPrefixv4> subNets = new ArrayList<>();*/
+   
+   //===========
+	
+    @ManyToOne
+    @JoinColumn(name="FK_PARENT_PREFIX")
+    public IpPrefixv4 parentPrefix = null;
 
+    @OneToMany(cascade = CascadeType.ALL,mappedBy="parentPrefix")
+    public List<IpPrefixv4> subNets = new ArrayList<IpPrefixv4>();
+	
+   //===========
+	
+	/*@OneToMany(cascade = CascadeType.ALL,cascade = CascadeType.ALL)
+	@JoinTable(
+			name="ContainedSubnetwork",
+			joinColumns = { @JoinColumn( name = "IP_PREFIXV4_ID") },
+			inverseJoinColumns = @JoinColumn( name = "SUB_NETS_ID")
+			)*/
+	  
 	public IpPrefixv4() {
 		super();
 		this.setCreationDate(LocalDateTime.now());
@@ -254,6 +276,21 @@ public class IpPrefixv4 extends IpPrefix implements Comparable<IpPrefixv4>{
 		}
 		return 0;
 	}
+
+	public IpPrefixv4 getParentPrefix() {
+		return parentPrefix;
+	}
+
+	public void setParentPrefix(IpPrefixv4 parentPrefix) {
+		this.parentPrefix = parentPrefix;
+	}
+	
+	public void addSubnet(IpPrefixv4 prefix)
+	{
+		prefix.setParentPrefix(this);
+		this.getSubNets().add(prefix);
+	}
+	
 		
 
 }
